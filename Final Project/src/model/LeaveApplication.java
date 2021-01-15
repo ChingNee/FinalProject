@@ -23,6 +23,10 @@ public class LeaveApplication {
 		this.status = status;
 	}
 
+	public LeaveApplication() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getLeaveID() {
 		return leaveID;
 	}

@@ -27,6 +27,10 @@ public class Payroll {
 		this.date = date;
 	}
 
+	public Payroll() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getPayrollID() {
 		return payrollID;
 	}

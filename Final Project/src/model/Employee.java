@@ -8,13 +8,15 @@ public class Employee {
 	
 	private String employeePosition;
 	
-	private String employeeSalary;
+	private double employeeSalary;
 	
 	private int annualLeave;
 	
 	private int sickLeave;
+	
+	public Employee() {};
 
-	public Employee(int employeeID, String employeeName, String employeePosition, String employeeSalary,
+	public Employee(int employeeID, String employeeName, String employeePosition, double employeeSalary,
 			int annualLeave, int sickLeave) {
 		super();
 		this.employeeID = employeeID;
@@ -49,11 +51,11 @@ public class Employee {
 		this.employeePosition = employeePosition;
 	}
 
-	public String getEmployeeSalary() {
+	public double getEmployeeSalary() {
 		return employeeSalary;
 	}
 
-	public void setEmployeeSalary(String employeeSalary) {
+	public void setEmployeeSalary(double employeeSalary) {
 		this.employeeSalary = employeeSalary;
 	}
 

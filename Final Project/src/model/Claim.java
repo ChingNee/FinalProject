@@ -10,6 +10,8 @@ public class Claim {
 	
 	private String status;
 	
+	public Claim() {};
+	
 	public Claim(int claimID, int employeeID, double amount, String status) {
 		super();
 		this.claimID = claimID;
