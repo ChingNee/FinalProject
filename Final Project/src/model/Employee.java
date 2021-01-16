@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 public class Employee {
 	
 	private int employeeID;
@@ -14,18 +16,17 @@ public class Employee {
 	
 	private int sickLeave;
 	
+	private String gender;
+	
+	private int accountNo;
+	
+	private Date dateJoined;
+	
+	private int age;
+	
+	private String phoneNo;
+	
 	public Employee() {};
-
-	public Employee(int employeeID, String employeeName, String employeePosition, double employeeSalary,
-			int annualLeave, int sickLeave) {
-		super();
-		this.employeeID = employeeID;
-		this.employeeName = employeeName;
-		this.employeePosition = employeePosition;
-		this.employeeSalary = employeeSalary;
-		this.annualLeave = annualLeave;
-		this.sickLeave = sickLeave;
-	}
 
 	public int getEmployeeID() {
 		return employeeID;
@@ -73,6 +74,46 @@ public class Employee {
 
 	public void setSickLeave(int sickLeave) {
 		this.sickLeave = sickLeave;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(int accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	public Date getDateJoined() {
+		return dateJoined;
+	}
+
+	public void setDateJoined(Date dateJoined) {
+		this.dateJoined = dateJoined;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 	
 
