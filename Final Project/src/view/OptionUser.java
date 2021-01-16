@@ -51,47 +51,47 @@ public class OptionUser {
 		optionScreenFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select An Action");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblNewLabel.setBounds(163, 31, 172, 19);
-		panel.add(lblNewLabel);
+		JLabel selectAnActionLabel = new JLabel("Select An Action");
+		selectAnActionLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+		selectAnActionLabel.setBounds(163, 31, 172, 19);
+		panel.add(selectAnActionLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 90, 486, 243);
 		optionScreenFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(4,2));
 		
-		JButton btnNewButton = new JButton("Manage Employee");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton);
+		JButton manageEmployeeButton = new JButton("Manage Employee");
+		manageEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(manageEmployeeButton);
 		
-		JButton btnNewButton_1 = new JButton("Manage Claim");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_1);
+		JButton manageClaimButton = new JButton("Manage Claim");
+		manageClaimButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(manageClaimButton);
 		
-		JButton btnNewButton_2 = new JButton("Manage Leave Application");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_2);
+		JButton manageLeaveApplicationButton = new JButton("Manage Leave Application");
+		manageLeaveApplicationButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(manageLeaveApplicationButton);
 		
-		JButton btnNewButton_3 = new JButton("Manage Payroll");
-		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_3);
+		JButton managePayrollButton = new JButton("Manage Payroll");
+		managePayrollButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(managePayrollButton);
 		
-		JButton btnNewButton_4 = new JButton("View Employee List");
-		btnNewButton_4.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_4);
+		JButton viewEmployeeListButton = new JButton("View Employee List");
+		viewEmployeeListButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewEmployeeListButton);
 		
-		JButton btnNewButton_5 = new JButton("View Claim List");
-		btnNewButton_5.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_5);
+		JButton viewClaimListButton = new JButton("View Claim List");
+		viewClaimListButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewClaimListButton);
 		
-		JButton btnNewButton_6 = new JButton("View Leave List");
-		btnNewButton_6.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_6);
+		JButton viewLeaveListButton = new JButton("View Leave List");
+		viewLeaveListButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewLeaveListButton);
 		
-		JButton btnNewButton_7 = new JButton("View Payroll List");
-		btnNewButton_7.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_7);
+		JButton viewPayrollListButton = new JButton("View Payroll List");
+		viewPayrollListButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewPayrollListButton);
 	}
 
 }

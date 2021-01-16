@@ -51,27 +51,27 @@ public class OptionManageEmployee {
 		optionOfManageEmployeeFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select An Action");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblNewLabel.setBounds(160, 24, 172, 26);
-		panel.add(lblNewLabel);
+		JLabel selectAnActionLabel = new JLabel("Select An Action");
+		selectAnActionLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+		selectAnActionLabel.setBounds(160, 24, 172, 26);
+		panel.add(selectAnActionLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 92, 486, 250);
 		optionOfManageEmployeeFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(3,1));
 		
-		JButton btnNewButton = new JButton("Add Employee");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton);
+		JButton addEmployeeButton = new JButton("Add Employee");
+		addEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(addEmployeeButton);
 		
-		JButton btnNewButton_1 = new JButton("Update Employee");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_1);
+		JButton updateEmployeeButton = new JButton("Update Employee");
+		updateEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(updateEmployeeButton);
 		
-		JButton btnNewButton_2 = new JButton("Delete Employee");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_2);
+		JButton deleteEmployeeButton = new JButton("Delete Employee");
+		deleteEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(deleteEmployeeButton);
 	}
 
 }

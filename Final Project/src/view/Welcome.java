@@ -83,20 +83,20 @@ public class Welcome {
 		ImageIcon scaledIcon = new ImageIcon(imgScale);
 		lblNewLabel_1.setIcon(scaledIcon);
 		
-		JButton btnNewButton = new JButton("Register");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(203, 240, 85, 21);
-		panel.add(btnNewButton);
+		JButton registerButton = new JButton("Register");
+		registerButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		registerButton.setBounds(203, 240, 85, 21);
+		panel.add(registerButton);
 		
-		JButton btnNewButton_1 = new JButton("Login");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(88, 240, 85, 21);
-		panel.add(btnNewButton_1);
+		JButton loginButton = new JButton("Login");
+		loginButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		loginButton.setBounds(88, 240, 85, 21);
+		panel.add(loginButton);
 		
-		JButton btnNewButton_2 = new JButton("Apply");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(319, 240, 85, 21);
-		panel.add(btnNewButton_2);
+		JButton applyButton = new JButton("Apply");
+		applyButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		applyButton.setBounds(319, 240, 85, 21);
+		panel.add(applyButton);
 		
 	}
 	

@@ -13,8 +13,8 @@ import javax.swing.JPasswordField;
 public class RegisterUser {
 
 	private JFrame registerScreenFrame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField userIDField;
+	private JTextField fullNameField;
 	private JPasswordField passwordField;
 
 	/**
@@ -55,45 +55,45 @@ public class RegisterUser {
 		registerScreenFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("User ID: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblNewLabel.setBounds(60, 80, 90, 13);
-		panel.add(lblNewLabel);
+		JLabel userIDLabel = new JLabel("User ID: ");
+		userIDLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
+		userIDLabel.setBounds(60, 80, 90, 13);
+		panel.add(userIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(160, 79, 255, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		userIDField = new JTextField();
+		userIDField.setBounds(160, 79, 255, 19);
+		panel.add(userIDField);
+		userIDField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Full Name: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(60, 120, 90, 13);
-		panel.add(lblNewLabel_1);
+		JLabel fullNameLabel = new JLabel("Full Name: ");
+		fullNameLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
+		fullNameLabel.setBounds(60, 120, 90, 13);
+		panel.add(fullNameLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(160, 119, 255, 19);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		fullNameField = new JTextField();
+		fullNameField.setBounds(160, 119, 255, 19);
+		panel.add(fullNameField);
+		fullNameField.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Password: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblNewLabel_2.setBounds(60, 160, 90, 13);
-		panel.add(lblNewLabel_2);
+		JLabel passwordLabel = new JLabel("Password: ");
+		passwordLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
+		passwordLabel.setBounds(60, 160, 90, 13);
+		panel.add(passwordLabel);
 		
-		JButton btnNewButton = new JButton("Reset");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(60, 245, 85, 21);
-		panel.add(btnNewButton);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(60, 245, 85, 21);
+		panel.add(resetButton);
 		
-		JButton btnNewButton_1 = new JButton("Go Back");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(330, 245, 85, 21);
-		panel.add(btnNewButton_1);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(330, 245, 85, 21);
+		panel.add(goBackButton);
 		
-		JButton btnNewButton_2 = new JButton("Register");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(195, 245, 85, 21);
-		panel.add(btnNewButton_2);
+		JButton registerButton = new JButton("Register");
+		registerButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		registerButton.setBounds(195, 245, 85, 21);
+		panel.add(registerButton);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(160, 159, 255, 19);
