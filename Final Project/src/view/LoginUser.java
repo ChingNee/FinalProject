@@ -6,14 +6,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.UserController;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 public class LoginUser {
 
 	private JFrame loginScreenFrame;
-	private JTextField textField;
+	private JTextField userIDField;
 	private JPasswordField passwordField;
 
 	/**
@@ -54,35 +60,79 @@ public class LoginUser {
 		loginScreenFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("User ID: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblNewLabel.setBounds(66, 83, 85, 13);
-		panel.add(lblNewLabel);
+		JLabel userIDLabel = new JLabel("User ID: ");
+		userIDLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
+		userIDLabel.setBounds(66, 83, 85, 13);
+		panel.add(userIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(161, 82, 245, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		userIDField = new JTextField();
+		userIDField.setBounds(161, 82, 245, 19);
+		panel.add(userIDField);
+		userIDField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(66, 130, 85, 13);
-		panel.add(lblNewLabel_1);
+		JLabel passwordLabel = new JLabel("Password: ");
+		passwordLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
+		passwordLabel.setBounds(66, 130, 85, 13);
+		panel.add(passwordLabel);
 		
-		JButton btnNewButton = new JButton("Reset");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(66, 220, 85, 21);
-		panel.add(btnNewButton);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(66, 220, 85, 21);
+		panel.add(resetButton);
 		
-		JButton btnNewButton_1 = new JButton("Go Back");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(321, 220, 85, 21);
-		panel.add(btnNewButton_1);
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				userIDField.setText("");
+				passwordField.setText("");
+			}
+			
+		});
 		
-		JButton btnNewButton_2 = new JButton("Login");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(194, 220, 85, 21);
-		panel.add(btnNewButton_2);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(321, 220, 85, 21);
+		panel.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				loginScreenFrame.dispose();
+				new Welcome().main(null);
+			}
+						
+		});
+		
+		JButton loginButton = new JButton("Login");
+		loginButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		loginButton.setBounds(194, 220, 85, 21);
+		panel.add(loginButton);
+		
+		loginButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String userID = userIDField.getText();
+				String password = String.valueOf(passwordField.getPassword());
+				
+				UserController usrController = new UserController();
+				
+				if(usrController.login(userID,password)) {
+					
+					loginScreenFrame.dispose();
+					new OptionUser().main(null);
+					
+				}
+				
+			}
+			
+			
+		});
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 10));

@@ -135,4 +135,33 @@ public class UserController {
 		
 	}
 	
+	public boolean login(String userID, String password) {
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from user where user_id =? and password = ?";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, userID);
+			statement.setString(2, password);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+				
+				return true;
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
