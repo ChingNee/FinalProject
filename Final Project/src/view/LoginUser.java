@@ -6,7 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.UserController;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -74,15 +80,59 @@ public class LoginUser {
 		resetButton.setBounds(66, 220, 85, 21);
 		panel.add(resetButton);
 		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				userIDField.setText("");
+				passwordField.setText("");
+			}
+			
+		});
+		
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(321, 220, 85, 21);
 		panel.add(goBackButton);
 		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				loginScreenFrame.dispose();
+				new Welcome().main(null);
+			}
+						
+		});
+		
 		JButton loginButton = new JButton("Login");
 		loginButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		loginButton.setBounds(194, 220, 85, 21);
 		panel.add(loginButton);
+		
+		loginButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String userID = userIDField.getText();
+				String password = String.valueOf(passwordField.getPassword());
+				
+				UserController usrController = new UserController();
+				
+				if(usrController.login(userID,password)) {
+					
+					loginScreenFrame.dispose();
+					new OptionUser().main(null);
+					
+				}
+				
+			}
+			
+			
+		});
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 10));

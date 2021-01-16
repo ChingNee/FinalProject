@@ -6,7 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controller.UserController;
+import model.User;
+
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -85,15 +92,62 @@ public class RegisterUser {
 		resetButton.setBounds(60, 245, 85, 21);
 		panel.add(resetButton);
 		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				userIDField.setText("");
+				fullNameField.setText("");
+				passwordField.setText("");
+				
+			}
+			
+			
+		});
+		
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(330, 245, 85, 21);
 		panel.add(goBackButton);
 		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				registerScreenFrame.dispose();
+				new Welcome().main(null);
+			}
+			
+			
+		});
+		
 		JButton registerButton = new JButton("Register");
 		registerButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		registerButton.setBounds(195, 245, 85, 21);
 		panel.add(registerButton);
+		
+		registerButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String userID = userIDField.getText();
+				String fullName = fullNameField.getText();
+				String password = passwordField.getText();
+				User user = new User(userID,fullName,password);
+				
+				UserController usrController = new UserController();
+				usrController.insertUser(user);
+				
+				registerScreenFrame.dispose();
+				new OptionUser().main(null);
+				
+			}
+			
+			
+		});
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(160, 159, 255, 19);

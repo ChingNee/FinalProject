@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -88,15 +90,53 @@ public class Welcome {
 		registerButton.setBounds(203, 240, 85, 21);
 		panel.add(registerButton);
 		
+		registerButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				mainFrame.dispose();
+				new RegisterUser().main(null);
+			}
+			
+			
+		});
+		
 		JButton loginButton = new JButton("Login");
 		loginButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		loginButton.setBounds(88, 240, 85, 21);
 		panel.add(loginButton);
 		
+		loginButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				mainFrame.dispose();
+				new LoginUser().main(null);
+				
+			}
+			
+			
+		});
+		
 		JButton applyButton = new JButton("Apply");
 		applyButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		applyButton.setBounds(319, 240, 85, 21);
 		panel.add(applyButton);
+		
+		applyButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				mainFrame.dispose();
+				//apply page main method
+				
+			}
+			
+			
+		});
 		
 	}
 	
