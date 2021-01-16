@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.connection.DBController;
 import model.Payroll;
@@ -115,17 +116,55 @@ public class PayrollController {
 			
 			while(result.next()) {
 				
-				payroll = new Payroll();
-				payroll.setPayrollID(result.getInt(1));
-				payroll.setEmployeeID(result.getInt(2));
-				payroll.setTotalClaim(result.getDouble(3));
-				payroll.setTotalDeduction(result.getDouble(4));
-				payroll.setTotalAmount(result.getDouble(5));
-				payroll.setDate(result.getDate(6));
+				payroll = getPayrollFromResult(result);
 				
 				return payroll;
 				
 			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	private Payroll getPayrollFromResult(ResultSet result) throws SQLException {
+		Payroll payroll;
+		payroll = new Payroll();
+		payroll.setPayrollID(result.getInt(1));
+		payroll.setEmployeeID(result.getInt(2));
+		payroll.setTotalClaim(result.getDouble(3));
+		payroll.setTotalDeduction(result.getDouble(4));
+		payroll.setTotalAmount(result.getDouble(5));
+		payroll.setDate(result.getDate(6));
+		return payroll;
+	}
+
+	public ArrayList<Payroll> getListOfPayroll(){
+		
+		ArrayList<Payroll> payrollList = new ArrayList<Payroll>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from payroll";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+								
+				payrollList.add(getPayrollFromResult(result));
+				
+			}
+			
+			return payrollList;
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

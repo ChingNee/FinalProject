@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.connection.DBController;
 import model.Claim;
@@ -108,11 +109,7 @@ public class ClaimController {
 			
 			while(result.next()) {
 				
-				claim = new Claim();
-				claim.setClaimID(result.getInt(1));
-				claim.setEmployeeID(result.getInt(2));
-				claim.setAmount(result.getDouble(3));
-				claim.setStatus(result.getString(4));
+				claim = getClaimFromResult(result);
 				
 				return claim;
 				
@@ -128,5 +125,46 @@ public class ClaimController {
 		
 		return null;
 		
+	}
+
+	private Claim getClaimFromResult(ResultSet result) throws SQLException {
+		Claim claim = new Claim();
+		claim.setClaimID(result.getInt(1));
+		claim.setEmployeeID(result.getInt(2));
+		claim.setAmount(result.getDouble(3));
+		claim.setStatus(result.getString(4));
+		return claim;
+	}
+
+	public ArrayList<Claim> getClaimList(){
+		
+		ArrayList<Claim> claimList = new ArrayList<Claim>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from claim";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+							
+				claimList.add(getClaimFromResult(result));
+				
+			}
+			
+			return claimList;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
