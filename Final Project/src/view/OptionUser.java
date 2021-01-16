@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class OptionUser {
 
@@ -64,6 +66,18 @@ public class OptionUser {
 		JButton manageEmployeeButton = new JButton("Manage Employee");
 		manageEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(manageEmployeeButton);
+		
+		manageEmployeeButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new OptionManageEmployee().main(null);
+				
+			}
+			
+		});
 		
 		JButton manageClaimButton = new JButton("Manage Claim");
 		manageClaimButton.setFont(new Font("Verdana", Font.BOLD, 10));
