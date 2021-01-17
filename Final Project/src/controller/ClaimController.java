@@ -24,12 +24,13 @@ public class ClaimController {
 		try {
 			Connection con = dbController.getConnection();
 
-			String query = "insert into claim(employee_id,amount,status)" + " values(?,?,?)";
+			String query = "insert into claim(employee_id,amount,status,date)" + " values(?,?,?,?)";
 
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setInt(1, claim.getEmployeeID());
 			statement.setDouble(2, claim.getAmount());
 			statement.setString(3, claim.getStatus());
+			statement.setDate(4, claim.getDate());
 
 			int i = statement.executeUpdate();
 			System.out.println(i + " row inserted");
@@ -49,13 +50,15 @@ public class ClaimController {
 		try {
 			Connection con = dbController.getConnection();
 
-			String query = "update claim set" + "employee_id =?," + "amount = ?," + "status = ? "
+			String query = "update claim set" + "employee_id =?," + "amount = ?," + "status = ?,"+"date = ? "
 					+ "where claim_id = ?";
 			
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setInt(1, claim.getEmployeeID());
 			statement.setDouble(2, claim.getAmount());
 			statement.setString(3, claim.getStatus());
+			statement.setDate(4, claim.getDate());
+			statement.setInt(5, claim.getClaimID());
 			
 			int i = statement.executeUpdate();
 			System.out.println(i+" row updated");
@@ -133,6 +136,7 @@ public class ClaimController {
 		claim.setEmployeeID(result.getInt(2));
 		claim.setAmount(result.getDouble(3));
 		claim.setStatus(result.getString(4));
+		claim.setDate(result.getDate(5));
 		return claim;
 	}
 
@@ -167,4 +171,72 @@ public class ClaimController {
 		
 		return null;
 	}
+
+	public ArrayList<Claim> getApprovedClaimListByEmployeeID(int employeeID){
+		
+		ArrayList<Claim> claimList = new ArrayList<Claim>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from claim where employee_id = ? and status = 'approved'";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, employeeID);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+							
+				claimList.add(getClaimFromResult(result));
+				
+			}
+			
+			return claimList;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<Claim> getClaimListByEmployeeID(int employeeID){
+		
+		ArrayList<Claim> claimList = new ArrayList<Claim>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from claim where employee_id = ?";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, employeeID);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+							
+				claimList.add(getClaimFromResult(result));
+				
+			}
+			
+			return claimList;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+
 }

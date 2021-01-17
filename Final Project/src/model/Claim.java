@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 public class Claim {
 	
 	private int claimID;
@@ -10,15 +12,9 @@ public class Claim {
 	
 	private String status;
 	
-	public Claim() {};
+	private Date date;
 	
-	public Claim(int claimID, int employeeID, double amount, String status) {
-		super();
-		this.claimID = claimID;
-		this.employeeID = employeeID;
-		this.amount = amount;
-		this.status = status;
-	}
+	public Claim() {};
 
 	public int getEmployeeID() {
 		return employeeID;
@@ -50,6 +46,14 @@ public class Claim {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	
