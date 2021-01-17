@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -84,9 +86,22 @@ public class OptionManageEmployee {
 		updateEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(updateEmployeeButton);
 		
+		updateEmployeeButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfManageEmployeeFrame.dispose();
+				new UpdateEmployee().main(null);
+			}
+			
+			
+		});
+		
 		JButton deleteEmployeeButton = new JButton("Delete Employee");
 		deleteEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(deleteEmployeeButton);
+		
 	}
 
 }

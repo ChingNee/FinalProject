@@ -6,13 +6,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controller.EmployeeController;
+
 import javax.swing.JButton;
 
 public class DeleteEmployee {
 
 	private JFrame deleteEmployeeFrame;
-	private JTextField textField;
+	private JTextField employeeIDField;
 
 	/**
 	 * Launch the application.
@@ -52,35 +58,74 @@ public class DeleteEmployee {
 		deleteEmployeeFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee ID: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel.setBounds(85, 29, 84, 13);
-		panel.add(lblNewLabel);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(85, 29, 84, 13);
+		panel.add(employeeIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(179, 26, 211, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(179, 26, 211, 19);
+		panel.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 152, 486, 77);
 		deleteEmployeeFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(62, 40, 85, 21);
-		panel_1.add(btnNewButton_1);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(62, 40, 85, 21);
+		panel_1.add(resetButton);
 		
-		JButton btnNewButton_2 = new JButton("Go Back");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(341, 40, 85, 21);
-		panel_1.add(btnNewButton_2);
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				employeeIDField.setText("");
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_3 = new JButton("Delete");
-		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_3.setBounds(201, 40, 85, 21);
-		panel_1.add(btnNewButton_3);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(341, 40, 85, 21);
+		panel_1.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				deleteEmployeeFrame.dispose();
+				new OptionManageEmployee().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton deleteButton = new JButton("Delete");
+		deleteButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		deleteButton.setBounds(201, 40, 85, 21);
+		panel_1.add(deleteButton);
+		
+		deleteButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int employeeID = Integer.parseInt(employeeIDField.getText());
+				
+				EmployeeController employeeController = new EmployeeController();
+				employeeController.deleteEmployeeByID(employeeID);
+				
+			}
+			
+			
+		});
 	}
 
 }

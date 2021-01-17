@@ -7,8 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import controller.EmployeeController;
+import model.Employee;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.DefaultComboBoxModel;
@@ -23,6 +31,10 @@ public class UpdateEmployee {
 	private JTextField dateJoinedField;
 	private JTextField phoneNoField;
 	private JTextField salaryField;
+	private JSpinner sickLeaveField;
+	private JSpinner annualLeaveField;
+	private JComboBox<String> genderField;
+	private JSpinner ageField;
 
 	/**
 	 * Launch the application.
@@ -87,6 +99,31 @@ public class UpdateEmployee {
 		searchButton.setBounds(339, 10, 85, 21);
 		panel_1.add(searchButton);
 		
+		searchButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int employeeID = Integer.parseInt(employeeIDField.getText());
+				EmployeeController employeeController = new EmployeeController();
+				Employee employee = employeeController.searchByEmployeeID(employeeID);
+				
+				employeeNameField.setText(employee.getEmployeeName());
+				accNoField.setText(Integer.toString(employee.getAccountNo()));
+				positionField.setText(employee.getEmployeePosition());
+				dateJoinedField.setText(employee.getDateJoined().toString());
+				phoneNoField.setText(employee.getPhoneNo());
+				salaryField.setText(String.valueOf(employee.getEmployeeSalary()));
+				sickLeaveField.setValue(employee.getSickLeave());
+				annualLeaveField.setValue(employee.getAnnualLeave());
+				genderField.setSelectedItem(employee.getGender());
+				ageField.setValue(employee.getAge());				
+				
+			}
+			
+			
+		});
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 68, 496, 180);
 		updateEmployeeFrame.getContentPane().add(panel_2);
@@ -138,7 +175,7 @@ public class UpdateEmployee {
 		employeeNameField.setColumns(10);
 		
 		String[] choices = {"Male", "Female"};
-		JComboBox genderField = new JComboBox(choices);
+		genderField = new JComboBox<String>(choices);
 		genderField.setBounds(60, 57, 165, 21);
 		genderField.setSelectedIndex(0);
 		panel_2.add(genderField);
@@ -163,7 +200,7 @@ public class UpdateEmployee {
 		panel_2.add(phoneNoField);
 		phoneNoField.setColumns(10);
 		
-		JSpinner ageField = new JSpinner();
+		ageField = new JSpinner();
 		ageField.setBounds(320, 55, 166, 20);
 		panel_2.add(ageField);
 		
@@ -197,11 +234,11 @@ public class UpdateEmployee {
 		annualLeaveLabel.setBounds(248, 0, 248, 48);
 		panel_4.add(annualLeaveLabel);
 		
-		JSpinner sickLeaveField = new JSpinner();
+		sickLeaveField = new JSpinner();
 		sickLeaveField.setBounds(115, 15, 110, 20);
 		panel_4.add(sickLeaveField);
 		
-		JSpinner annualLeaveField = new JSpinner();
+		annualLeaveField = new JSpinner();
 		annualLeaveField.setBounds(376, 15, 110, 20);
 		panel_4.add(annualLeaveField);
 		
@@ -215,15 +252,76 @@ public class UpdateEmployee {
 		resetButton.setBounds(50, 10, 85, 21);
 		panel_5.add(resetButton);
 		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				employeeIDField.setText("");
+				employeeNameField.setText("");
+				accNoField.setText("");
+				positionField.setText("");
+				dateJoinedField.setText("");
+				phoneNoField.setText("");
+				salaryField.setText("");
+				sickLeaveField.setValue(0);
+				annualLeaveField.setValue(0);
+				genderField.setSelectedIndex(0);
+				ageField.setValue(0);
+				
+			}
+			
+			
+		});
+		
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(350, 10, 85, 21);
 		panel_5.add(goBackButton);
 		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				updateEmployeeFrame.dispose();
+				new OptionManageEmployee().main(null);
+				
+			}
+			
+		});
+		
 		JButton updateButton = new JButton("Update");
 		updateButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		updateButton.setBounds(200, 10, 85, 21);
 		panel_5.add(updateButton);
+		
+		updateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Employee employee = new Employee();
+				employee.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
+				employee.setEmployeeName(employeeNameField.getText());
+				employee.setEmployeePosition(positionField.getText());
+				employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
+				employee.setAnnualLeave((int)annualLeaveField.getValue());
+				employee.setSickLeave((int)sickLeaveField.getValue());
+				employee.setGender((String)genderField.getSelectedItem());
+				employee.setAccountNo(Integer.parseInt(accNoField.getText()));
+				employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
+				employee.setAge((int)ageField.getValue());
+				employee.setPhoneNo(phoneNoField.getText());
+				
+				EmployeeController employeeController = new EmployeeController();
+				
+				employeeController.updateEmployee(employee);
+				
+			}
+			
+			
+		});
 	}
 
 }
