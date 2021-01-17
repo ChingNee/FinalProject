@@ -7,7 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JTextField;
+
+import controller.EmployeeController;
+import model.Employee;
+
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -23,6 +32,8 @@ public class AddEmployee {
 	private JTextField dateJoinedField;
 	private JTextField salaryField;
 	private JTextField phoneNoField;
+	private JSpinner annualLeaveField;
+	private JSpinner sickLeaveField;
 
 	/**
 	 * Launch the application.
@@ -58,9 +69,9 @@ public class AddEmployee {
 		addEmployeeFrame.getContentPane().setLayout(null);
 		
 		JLabel employeeInformationLabel = new JLabel("Employee Information: ");
-		employeeInformationLabel.setBounds(10, 10, 182, 19);
+		employeeInformationLabel.setBounds(10, 10, 205, 19);
 		addEmployeeFrame.getContentPane().add(employeeInformationLabel);
-		employeeInformationLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		employeeInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 10, 486, 19);
@@ -162,15 +173,74 @@ public class AddEmployee {
 		resetButton.setBounds(60, 10, 85, 21);
 		panel_2.add(resetButton);
 		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				nameField.setText("");
+				positionField.setText("");
+				salaryField.setText("");
+				genderField.setSelectedIndex(0);
+				accNoField.setText("");
+				phoneNoField.setText("");
+				ageField.setValue(0);
+				dateJoinedField.setText("");
+				annualLeaveField.setValue(0);
+				sickLeaveField.setValue(0);
+				
+			}
+			
+			
+		});
+		
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(345, 10, 85, 21);
 		panel_2.add(goBackButton);
 		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addEmployeeFrame.dispose();
+				new OptionManageEmployee().main(null);
+				
+			}
+			
+		});
+		
 		JButton addButton = new JButton("Add");
 		addButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		addButton.setBounds(205, 10, 85, 21);
 		panel_2.add(addButton);
+		
+		addButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Employee employee = new Employee();
+				employee.setEmployeeName(nameField.getText());
+				employee.setEmployeePosition(positionField.getText());
+				employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
+				employee.setAnnualLeave((int)annualLeaveField.getValue());
+				employee.setSickLeave((int)sickLeaveField.getValue());
+				employee.setGender((String)genderField.getSelectedItem());
+				employee.setAccountNo(Integer.parseInt(accNoField.getText()));
+				employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
+				employee.setAge((int)ageField.getValue());
+				employee.setPhoneNo(phoneNoField.getText());
+				
+				EmployeeController employeeController = new EmployeeController();
+				
+				employeeController.insertEmployee(employee);
+				
+			}
+			
+			
+		});
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 244, 486, 19);
@@ -192,7 +262,7 @@ public class AddEmployee {
 		sickLeaveLabel.setBounds(0, 10, 130, 20);
 		panel_4.add(sickLeaveLabel);
 		
-		JSpinner sickLeaveField = new JSpinner();
+		sickLeaveField = new JSpinner();
 		sickLeaveField.setBounds(140, 13, 82, 20);
 		panel_4.add(sickLeaveField);
 		
@@ -201,7 +271,7 @@ public class AddEmployee {
 		annualLeaveLabel.setBounds(243, 10, 152, 20);
 		panel_4.add(annualLeaveLabel);
 		
-		JSpinner annualLeaveField = new JSpinner();
+		annualLeaveField = new JSpinner();
 		annualLeaveField.setBounds(394, 13, 82, 20);
 		panel_4.add(annualLeaveField);
 

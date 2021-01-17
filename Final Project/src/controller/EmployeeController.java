@@ -22,8 +22,8 @@ public class EmployeeController {
 		try {
 			Connection con = dbController.getConnection();
 
-			String query = "insert into employee" + "(employee_name,employee_position,employee_salary"
-					+ "annual_leave, sick_leave) values(?,?,?,?,?)";
+			String query = "insert into employee" + "(employee_name,employee_position,employee_salary,"
+					+ "annual_leave, sick_leave, gender, account_no, date_joined, age, phone_no) values(?,?,?,?,?,?,?,?,?,?)";
 			
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, employee.getEmployeeName());
@@ -31,6 +31,12 @@ public class EmployeeController {
 			statement.setDouble(3, employee.getEmployeeSalary());
 			statement.setInt(4, employee.getAnnualLeave());
 			statement.setInt(5, employee.getSickLeave());
+			statement.setString(6, employee.getGender());
+			statement.setInt(7, employee.getAccountNo());
+			statement.setDate(8, employee.getDateJoined());
+			statement.setInt(9, employee.getAge());
+			statement.setString(10, employee.getPhoneNo());
+			
 			
 			int i = statement.executeUpdate();
 			System.out.println(i+" row inserted");
@@ -56,7 +62,12 @@ public class EmployeeController {
 							" employee_position = ?,"+
 							" employee_salary = ?,"+
 							" annual_leave = ?,"+
-							" sick_leave = ?"+
+							" sick_leave = ?,"+
+							" gender = ?,"+
+							" account_no = ?,"+
+							" date_joined = ?,"+
+							" age = ?,"+
+							" phone_no = ?"+
 							" where employee_id = ?";
 			
 			PreparedStatement statement = con.prepareStatement(query);
@@ -65,7 +76,12 @@ public class EmployeeController {
 			statement.setDouble(3, employee.getEmployeeSalary());
 			statement.setInt(4, employee.getAnnualLeave());
 			statement.setInt(5, employee.getSickLeave());
-			statement.setInt(6, employee.getEmployeeID());
+			statement.setString(6, employee.getGender());
+			statement.setInt(7, employee.getAccountNo());
+			statement.setDate(8, employee.getDateJoined());
+			statement.setInt(9, employee.getAge());
+			statement.setString(10, employee.getPhoneNo());
+			statement.setInt(11, employee.getEmployeeID());
 			
 			int i = statement.executeUpdate();
 			System.out.println(i+" row updated");
@@ -140,9 +156,16 @@ public class EmployeeController {
 		employee = new Employee();
 		employee.setEmployeeID(result.getInt(1));
 		employee.setEmployeeName(result.getString(2));
-		employee.setEmployeeSalary(result.getDouble(3));
-		employee.setAnnualLeave(result.getInt(4));
-		employee.setSickLeave(result.getInt(5));
+		employee.setEmployeePosition(result.getString(3));
+		employee.setEmployeeSalary(result.getDouble(4));
+		employee.setAnnualLeave(result.getInt(5));
+		employee.setSickLeave(result.getInt(6));
+		employee.setGender(result.getString(7));
+		employee.setAccountNo(result.getInt(8));
+		employee.setDateJoined(result.getDate(9));
+		employee.setAge(result.getInt(10));
+		employee.setPhoneNo(result.getString(11));
+		
 		return employee;
 	}
 
