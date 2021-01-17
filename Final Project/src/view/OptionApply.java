@@ -57,9 +57,9 @@ public class OptionApply {
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 105, 486, 200);
+		panel_1.setBounds(10, 105, 486, 230);
 		optionOfApplyFrame.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(2,1));
+		panel_1.setLayout(new GridLayout(4,1));
 		
 		JButton btnNewButton = new JButton("Add Claim");
 		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
@@ -68,6 +68,14 @@ public class OptionApply {
 		JButton btnNewButton_2 = new JButton("Add Leave");
 		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(btnNewButton_2);
+		
+		JButton btnNewButton_1 = new JButton("View Claim Status");
+		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(btnNewButton_1);
+		
+		JButton btnNewButton_3 = new JButton("View Leave Status");
+		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(btnNewButton_3);
 	}
 
 }
