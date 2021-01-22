@@ -7,14 +7,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import controller.LeaveApplicationController;
+import model.LeaveApplication;
+
 public class ViewLeaveList {
 
 	private JFrame viewLeaveListFrame;
-	private JTable table;
+	private JTable leaveTable;
+	private String[] cols = {"Leave ID", "Employee ID", "Type", "Date", "Status"};
+	private String[][] data = {};
+	private DefaultTableModel model = new DefaultTableModel(data,cols);
 
 	/**
 	 * Launch the application.
@@ -49,66 +60,52 @@ public class ViewLeaveList {
 		viewLeaveListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		viewLeaveListFrame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Go Back");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(400, 335, 85, 21);
-		viewLeaveListFrame.getContentPane().add(btnNewButton);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(400, 335, 85, 21);
+		viewLeaveListFrame.getContentPane().add(goBackButton);
 		
-		JLabel lblNewLabel = new JLabel("Leave Application List");
-		lblNewLabel.setBounds(165, 10, 190, 25);
-		viewLeaveListFrame.getContentPane().add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				viewLeaveListFrame.dispose();
+				new OptionUser().main(null);
+				
+			}
+			
+			
+		});
+		
+		JLabel leaveApplicationListLabel = new JLabel("Leave Application List");
+		leaveApplicationListLabel.setBounds(165, 10, 190, 25);
+		viewLeaveListFrame.getContentPane().add(leaveApplicationListLabel);
+		leaveApplicationListLabel.setFont(new Font("Verdana", Font.BOLD, 15));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 37, 486, 288);
 		viewLeaveListFrame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Leave ID", "Employee ID", "Type", "Status", "Date"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.setFont(new Font("Verdana", Font.PLAIN, 10));
-		scrollPane.setViewportView(table);
+		leaveTable = new JTable();
+		LeaveApplicationController leaveController = new LeaveApplicationController();
+		ArrayList<LeaveApplication> leaveList = leaveController.getLeaveApplicationList();
+		
+		for(LeaveApplication leave : leaveList) {
+			
+			int leaveID = leave.getLeaveID();
+			int employeeID = leave.getEmployeeID();
+			Date date = leave.getDate();
+			String type = leave.getType();
+			String status = leave.getStatus();
+			
+			Object[] row = {leaveID,employeeID,type,date,status};
+			model.addRow(row);
+			
+		}
+		
+		leaveTable.setModel(model);
+		leaveTable.setFont(new Font("Verdana", Font.PLAIN, 10));
+		scrollPane.setViewportView(leaveTable);
 	}
 }

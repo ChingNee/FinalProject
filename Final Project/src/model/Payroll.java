@@ -8,7 +8,7 @@ public class Payroll {
 	
 	private int employeeID;
 	
-	private double totalClaim;
+	private double totalAddition;
 	
 	private double totalDeduction;
 	
@@ -21,7 +21,7 @@ public class Payroll {
 		super();
 		this.payrollID = payrollID;
 		this.employeeID = employeeID;
-		this.totalClaim = totalClaim;
+		this.totalAddition = totalClaim;
 		this.totalDeduction = totalDeduction;
 		this.totalAmount = totalAmount;
 		this.date = date;
@@ -47,12 +47,12 @@ public class Payroll {
 		this.employeeID = employeeID;
 	}
 
-	public double getTotalClaim() {
-		return totalClaim;
+	public double getTotalAddition() {
+		return totalAddition;
 	}
 
-	public void setTotalClaim(double totalClaim) {
-		this.totalClaim = totalClaim;
+	public void setTotalAddition(double totalAddition) {
+		this.totalAddition = totalAddition;
 	}
 
 	public double getTotalDeduction() {

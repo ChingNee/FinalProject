@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.UserController;
@@ -117,16 +118,25 @@ public class LoginUser {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String userID = userIDField.getText();
-				String password = String.valueOf(passwordField.getPassword());
 				
-				UserController usrController = new UserController();
-				
-				if(usrController.login(userID,password)) {
+				try {
 					
-					loginScreenFrame.dispose();
-					new OptionUser().main(null);
+					String userID = userIDField.getText();
+					String password = String.valueOf(passwordField.getPassword());
 					
+					UserController usrController = new UserController();
+					
+					if(usrController.login(userID,password)) {
+						
+						loginScreenFrame.dispose();
+						new OptionUser().main(null);
+						
+					}else {
+						new JOptionPane().showMessageDialog(null, "Wrong username/password.");
+					}
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please complete the fields.");
 				}
 				
 			}

@@ -187,6 +187,8 @@ public class EmployeeController {
 				employeeList.add(getEmployeeFromResult(result));
 				
 			}
+			
+			return employeeList;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

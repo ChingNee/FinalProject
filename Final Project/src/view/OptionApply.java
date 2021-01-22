@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -51,31 +54,83 @@ public class OptionApply {
 		optionOfApplyFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select An Action");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblNewLabel.setBounds(162, 25, 172, 20);
-		panel.add(lblNewLabel);
+		JLabel selectAnActionLabel = new JLabel("Select An Action");
+		selectAnActionLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+		selectAnActionLabel.setBounds(162, 25, 172, 20);
+		panel.add(selectAnActionLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 105, 486, 230);
 		optionOfApplyFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(4,1));
 		
-		JButton btnNewButton = new JButton("Add Claim");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton);
+		JButton addClaimButton = new JButton("Add Claim");
+		addClaimButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(addClaimButton);
 		
-		JButton btnNewButton_2 = new JButton("Add Leave");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_2);
+		addClaimButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfApplyFrame.dispose();
+				new AddClaim().main(null);
+				
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_1 = new JButton("View Claim Status");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_1);
+		JButton addLeaveButton = new JButton("Add Leave");
+		addLeaveButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(addLeaveButton);
 		
-		JButton btnNewButton_3 = new JButton("View Leave Status");
-		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_1.add(btnNewButton_3);
+		addLeaveButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfApplyFrame.dispose();
+				new AddLeave().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton viewClaimStatusButton = new JButton("View Claim Status");
+		viewClaimStatusButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewClaimStatusButton);
+		
+		viewClaimStatusButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfApplyFrame.dispose();
+				new ViewClaimStatus().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton viewLeaveStatusButton = new JButton("View Leave Status");
+		viewLeaveStatusButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_1.add(viewLeaveStatusButton);
+		
+		viewLeaveStatusButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfApplyFrame.dispose();
+				new ViewLeaveStatus().main(null);
+				
+			}
+			
+			
+		});
 	}
 
 }

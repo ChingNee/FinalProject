@@ -6,13 +6,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controller.PayrollController;
 
 public class DeletePayroll {
 
 	private JFrame deletePayrollFrame;
-	private JTextField employeeIDField;
+	private JTextField payrollIDField;
 
 	/**
 	 * Launch the application.
@@ -52,15 +59,15 @@ public class DeletePayroll {
 		deletePayrollFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel employeeIDLabel = new JLabel("Payroll ID: ");
-		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
-		employeeIDLabel.setBounds(85, 29, 84, 13);
-		panel.add(employeeIDLabel);
+		JLabel payrollIDLabel = new JLabel("Payroll ID: ");
+		payrollIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		payrollIDLabel.setBounds(85, 29, 84, 13);
+		panel.add(payrollIDLabel);
 		
-		employeeIDField = new JTextField();
-		employeeIDField.setBounds(179, 26, 211, 19);
-		panel.add(employeeIDField);
-		employeeIDField.setColumns(10);
+		payrollIDField = new JTextField();
+		payrollIDField.setBounds(179, 26, 211, 19);
+		panel.add(payrollIDField);
+		payrollIDField.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 152, 486, 77);
@@ -72,16 +79,61 @@ public class DeletePayroll {
 		resetButton.setBounds(62, 40, 85, 21);
 		panel_1.add(resetButton);
 		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				payrollIDField.setText("");
+				
+			}
+			
+		});
+		
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(341, 40, 85, 21);
 		panel_1.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				deletePayrollFrame.dispose();
+				new OptionManagePayroll().main(null);
+				
+			}
+			
+			
+		});
 		
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		deleteButton.setBounds(201, 40, 85, 21);
 		panel_1.add(deleteButton);
 		
-	}
+		deleteButton.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					
+					int payrollID = Integer.parseInt(payrollIDField.getText());
+					PayrollController payrollController = new PayrollController();
+					payrollController.deletePayrollById(payrollID);
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");					
+				}
+				
+			}	
+			
+		});
+		
+	}
+	
 }

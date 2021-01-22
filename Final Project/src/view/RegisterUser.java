@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -133,16 +135,23 @@ public class RegisterUser {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String userID = userIDField.getText();
-				String fullName = fullNameField.getText();
-				String password = passwordField.getText();
-				User user = new User(userID,fullName,password);
 				
-				UserController usrController = new UserController();
-				usrController.insertUser(user);
-				
-				registerScreenFrame.dispose();
-				new OptionUser().main(null);
+				try {
+					
+					String userID = userIDField.getText();
+					String fullName = fullNameField.getText();
+					String password = String.valueOf(passwordField.getPassword());
+					User user = new User(userID,fullName,password);
+					
+					UserController usrController = new UserController();
+					usrController.insertUser(user);
+					
+					registerScreenFrame.dispose();
+					new OptionUser().main(null);
+					
+				}catch(NullPointerException exception) {
+					new JOptionPane().showMessageDialog(null, "Please complete the fields.");					
+				}
 				
 			}
 			

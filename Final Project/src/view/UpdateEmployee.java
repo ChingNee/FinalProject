@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 
 import controller.EmployeeController;
+import exception.ItemNotAvailableForUpdateException;
 import model.Employee;
 
 import javax.swing.JButton;
@@ -33,7 +36,7 @@ public class UpdateEmployee {
 	private JTextField salaryField;
 	private JSpinner sickLeaveField;
 	private JSpinner annualLeaveField;
-	private JComboBox<String> genderField;
+	private JComboBox genderField;
 	private JSpinner ageField;
 
 	/**
@@ -103,24 +106,31 @@ public class UpdateEmployee {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				int employeeID = Integer.parseInt(employeeIDField.getText());
-				EmployeeController employeeController = new EmployeeController();
-				Employee employee = employeeController.searchByEmployeeID(employeeID);
 				
-				employeeNameField.setText(employee.getEmployeeName());
-				accNoField.setText(Integer.toString(employee.getAccountNo()));
-				positionField.setText(employee.getEmployeePosition());
-				dateJoinedField.setText(employee.getDateJoined().toString());
-				phoneNoField.setText(employee.getPhoneNo());
-				salaryField.setText(String.valueOf(employee.getEmployeeSalary()));
-				sickLeaveField.setValue(employee.getSickLeave());
-				annualLeaveField.setValue(employee.getAnnualLeave());
-				genderField.setSelectedItem(employee.getGender());
-				ageField.setValue(employee.getAge());				
+				try {
+					
+					int employeeID = Integer.parseInt(employeeIDField.getText());
+					EmployeeController employeeController = new EmployeeController();
+					Employee employee = employeeController.searchByEmployeeID(employeeID);
+					
+					employeeNameField.setText(employee.getEmployeeName());
+					accNoField.setText(Integer.toString(employee.getAccountNo()));
+					positionField.setText(employee.getEmployeePosition());
+					dateJoinedField.setText(employee.getDateJoined().toString());
+					phoneNoField.setText(employee.getPhoneNo());
+					salaryField.setText(String.valueOf(employee.getEmployeeSalary()));
+					sickLeaveField.setValue(employee.getSickLeave());
+					annualLeaveField.setValue(employee.getAnnualLeave());
+					genderField.setSelectedItem(employee.getGender());
+					ageField.setValue(employee.getAge());
+					
+				} catch (NumberFormatException exception) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				} catch (NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Employee does not exist");
+				}							
 				
 			}
-			
 			
 		});
 		
@@ -175,7 +185,7 @@ public class UpdateEmployee {
 		employeeNameField.setColumns(10);
 		
 		String[] choices = {"Male", "Female"};
-		genderField = new JComboBox<String>(choices);
+		genderField = new JComboBox(choices);
 		genderField.setBounds(60, 57, 165, 21);
 		genderField.setSelectedIndex(0);
 		panel_2.add(genderField);
@@ -301,25 +311,35 @@ public class UpdateEmployee {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Employee employee = new Employee();
-				employee.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
-				employee.setEmployeeName(employeeNameField.getText());
-				employee.setEmployeePosition(positionField.getText());
-				employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
-				employee.setAnnualLeave((int)annualLeaveField.getValue());
-				employee.setSickLeave((int)sickLeaveField.getValue());
-				employee.setGender((String)genderField.getSelectedItem());
-				employee.setAccountNo(Integer.parseInt(accNoField.getText()));
-				employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
-				employee.setAge((int)ageField.getValue());
-				employee.setPhoneNo(phoneNoField.getText());
 				
-				EmployeeController employeeController = new EmployeeController();
-				
-				employeeController.updateEmployee(employee);
-				
+				try {
+					
+					Employee employee = new Employee();
+					employee.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
+					employee.setEmployeeName(employeeNameField.getText());
+					employee.setEmployeePosition(positionField.getText());
+					employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
+					employee.setAnnualLeave((int)annualLeaveField.getValue());
+					employee.setSickLeave((int)sickLeaveField.getValue());
+					employee.setGender((String)genderField.getSelectedItem());
+					employee.setAccountNo(Integer.parseInt(accNoField.getText()));
+					employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
+					employee.setAge((int)ageField.getValue());
+					employee.setPhoneNo(phoneNoField.getText());
+					
+					EmployeeController employeeController = new EmployeeController();
+					
+					employeeController.updateEmployee(employee);
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");					
+				}catch(IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
+								
 			}
-			
 			
 		});
 	}

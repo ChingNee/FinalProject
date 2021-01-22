@@ -1,12 +1,17 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import database.connection.DBController;
+import model.Claim;
+import model.Employee;
+import model.LeaveApplication;
 import model.Payroll;
 
 public class PayrollController {
@@ -19,23 +24,26 @@ public class PayrollController {
 
 	}
 
-	public void insertPayroll(Payroll payroll) {
+	public int insertPayroll(Payroll payroll) {
 
 		try {
 			Connection con = dbController.getConnection();
 
 			String query = "insert into payroll(employee_id,"
-					+ "total_claim,total_deduction,total_amount,date) values(?,?,?,?,?)";
+					+ "total_addition,total_deduction,total_amount,date) values(?,?,?,?,?)";
 
-			PreparedStatement statement = con.prepareStatement(query);
+			PreparedStatement statement = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			statement.setInt(1, payroll.getEmployeeID());
-			statement.setDouble(2, payroll.getTotalClaim());
+			statement.setDouble(2, payroll.getTotalAddition());
 			statement.setDouble(3, payroll.getTotalDeduction());
 			statement.setDouble(4, payroll.getTotalAmount());
 			statement.setDate(5, payroll.getDate());
 
 			int i = statement.executeUpdate();
-			System.out.println(i + " row inserted");
+			ResultSet rs = statement.getGeneratedKeys();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -44,6 +52,8 @@ public class PayrollController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return 0;
 
 	}
 
@@ -52,12 +62,12 @@ public class PayrollController {
 		try {
 			Connection con = dbController.getConnection();
 
-			String query = "update payroll set " + "employee_id = ?," + "total_claim = ?," + "total_deduction = ?,"
+			String query = "update payroll set " + "employee_id = ?," + "total_addition = ?," + "total_deduction = ?,"
 					+ "total_amount = ?," + "date = ?" + " where payroll_id = ?";
 			
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setInt(1, payroll.getEmployeeID());
-			statement.setDouble(2, payroll.getTotalClaim());
+			statement.setDouble(2, payroll.getTotalAddition());
 			statement.setDouble(3, payroll.getTotalDeduction());
 			statement.setDouble(4, payroll.getTotalAmount());
 			statement.setDate(5, payroll.getDate());
@@ -138,7 +148,7 @@ public class PayrollController {
 		payroll = new Payroll();
 		payroll.setPayrollID(result.getInt(1));
 		payroll.setEmployeeID(result.getInt(2));
-		payroll.setTotalClaim(result.getDouble(3));
+		payroll.setTotalAddition(result.getDouble(3));
 		payroll.setTotalDeduction(result.getDouble(4));
 		payroll.setTotalAmount(result.getDouble(5));
 		payroll.setDate(result.getDate(6));
@@ -177,4 +187,64 @@ public class PayrollController {
 		return null;
 	}
 
+	public void generatePayroll(int employeeID, int hour) {
+		
+		EmployeeController employeeController = new EmployeeController();
+		ClaimController claimController = new ClaimController();
+		
+		Employee employee = employeeController.searchByEmployeeID(employeeID);
+		ArrayList<Claim> approvedClaimList = claimController.getApprovedClaimListByEmployeeID(employeeID);
+		ArrayList<Claim> claimList = claimController.getClaimListByEmployeeID(employeeID);
+		
+		double totalClaim = 0;
+		double totalDeduction = 0;
+		int totalLeave = 0;
+		
+		for(Claim claim : approvedClaimList) {
+			
+			totalClaim += claim.getAmount();
+			
+		}
+		
+		for(Claim claim : claimList) {
+			
+			claim.setStatus("Archived");
+			claimController.updateClaim(claim);
+			
+		}
+	
+		if(employee.getAnnualLeave() < 0) {
+			int annualLeave = Math.abs(employee.getAnnualLeave());
+			totalDeduction += annualLeave*50;
+			totalLeave += annualLeave;
+			employee.setAnnualLeave(0);
+		}
+		
+		if(employee.getSickLeave() < 0) {
+			int sickLeave = Math.abs(employee.getSickLeave());
+			totalDeduction += sickLeave*50;
+			totalLeave += sickLeave;
+			employee.setSickLeave(0);
+		}
+		
+		employeeController.updateEmployee(employee);
+		
+		double totalAmount = employee.getEmployeeSalary();
+		totalAmount = totalAmount + totalClaim - totalDeduction;
+		
+		Payroll payroll = new Payroll();
+		payroll.setEmployeeID(employeeID);
+		payroll.setTotalAmount(totalAmount);
+		payroll.setTotalAddition(totalClaim);
+		payroll.setTotalDeduction(totalDeduction);
+		payroll.setDate(Date.valueOf(java.time.LocalDate.now()));
+		
+		int id = insertPayroll(payroll);		
+		
+		payroll.setPayrollID(id);
+		
+		ExcelController excelController = new ExcelController();
+		excelController.generateExcelPayslip(payroll, approvedClaimList, hour, totalLeave);
+		
+	}
 }

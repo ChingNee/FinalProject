@@ -5,8 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controller.LeaveApplicationController;
+import model.LeaveApplication;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -14,8 +24,9 @@ import javax.swing.JButton;
 public class AddLeave {
 
 	private JFrame addLeaveFrame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField dateField;
+	private JTextField employeeIDField;
+	private JComboBox typeField;
 
 	/**
 	 * Launch the application.
@@ -55,87 +66,140 @@ public class AddLeave {
 		addLeaveFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setText("");
-		textField.setBounds(341, 10, 135, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		dateField = new JTextField();
+		dateField.setText("");
+		dateField.setBounds(341, 10, 135, 19);
+		panel.add(dateField);
+		dateField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Date: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel.setBounds(286, 13, 45, 13);
-		panel.add(lblNewLabel);
+		JLabel dateLabel = new JLabel("Date: ");
+		dateLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		dateLabel.setBounds(286, 13, 45, 13);
+		panel.add(dateLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 55, 486, 25);
 		addLeaveFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee Information: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(0, 0, 205, 25);
-		panel_1.add(lblNewLabel_1);
+		JLabel employeeInformationLabel = new JLabel("Employee Information: ");
+		employeeInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		employeeInformationLabel.setBounds(0, 0, 205, 25);
+		panel_1.add(employeeInformationLabel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 90, 486, 60);
 		addLeaveFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Employee ID: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_2.setBounds(85, 23, 85, 13);
-		panel_2.add(lblNewLabel_2);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(85, 23, 85, 13);
+		panel_2.add(employeeIDLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(170, 20, 210, 19);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(170, 20, 210, 19);
+		panel_2.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 160, 486, 25);
 		addLeaveFrame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Leave Information: ");
-		lblNewLabel_3.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_3.setBounds(0, 0, 172, 25);
-		panel_3.add(lblNewLabel_3);
+		JLabel leaveInformationLabel = new JLabel("Leave Information: ");
+		leaveInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		leaveInformationLabel.setBounds(0, 0, 172, 25);
+		panel_3.add(leaveInformationLabel);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(10, 195, 486, 60);
 		addLeaveFrame.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblNewLabel_4 = new JLabel("Type: ");
-		lblNewLabel_4.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_4.setBounds(105, 30, 45, 13);
-		panel_4.add(lblNewLabel_4);
+		JLabel typeLabel = new JLabel("Type: ");
+		typeLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		typeLabel.setBounds(105, 30, 45, 13);
+		panel_4.add(typeLabel);
 		
 		String[] choices = {"Annual Leave", "Sick Leave"};
-		JComboBox comboBox = new JComboBox(choices);
-		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(170, 26, 210, 21);
-		panel_4.add(comboBox);
+		typeField = new JComboBox(choices);
+		typeField.setSelectedIndex(0);
+		typeField.setBounds(170, 26, 210, 21);
+		panel_4.add(typeField);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBounds(10, 265, 486, 60);
 		addLeaveFrame.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Go Back");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(349, 29, 85, 21);
-		panel_5.add(btnNewButton);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(349, 29, 85, 21);
+		panel_5.add(goBackButton);
 		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(49, 29, 85, 21);
-		panel_5.add(btnNewButton_1);
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addLeaveFrame.dispose();
+				new OptionApply().main(null);
+				
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_2 = new JButton("Apply");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(199, 29, 85, 21);
-		panel_5.add(btnNewButton_2);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(49, 29, 85, 21);
+		panel_5.add(resetButton);
+		
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dateField.setText("");
+				employeeIDField.setText("");
+				typeField.setSelectedIndex(0);
+				
+			}
+			
+			
+		});
+		
+		JButton applyButton = new JButton("Apply");
+		applyButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		applyButton.setBounds(199, 29, 85, 21);
+		panel_5.add(applyButton);
+		
+		applyButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					
+					LeaveApplication leaveApplication = new LeaveApplication();
+					leaveApplication.setDate(Date.valueOf(dateField.getText()));
+					leaveApplication.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
+					leaveApplication.setType((String)typeField.getSelectedItem());
+					leaveApplication.setStatus("Processing");
+					
+					LeaveApplicationController leaveApplicationController = new LeaveApplicationController();
+					leaveApplicationController.insertLeaveApplication(leaveApplication);
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");					
+				}catch(IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
+			}		
+		});
 	}
 
 }

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.connection.DBController;
+import exception.ItemNotAvailableForUpdateException;
+import model.Employee;
 import model.LeaveApplication;
 
 public class LeaveApplicationController {
@@ -57,9 +59,24 @@ public class LeaveApplicationController {
 			statement.setDate(2, leaveApplication.getDate());
 			statement.setString(3, leaveApplication.getType());
 			statement.setString(4, leaveApplication.getStatus());
+			statement.setInt(5, leaveApplication.getLeaveID());
 			
 			int i = statement.executeUpdate();
-			System.out.println(i+" row updated");
+			
+			if(leaveApplication.getStatus().equals("Accept")) {
+				
+				EmployeeController employeeController = new EmployeeController();
+				Employee employee = employeeController.searchByEmployeeID(leaveApplication.getEmployeeID());
+				
+				if(leaveApplication.getType().equals("Annual Leave")) {
+					employee.setAnnualLeave(employee.getAnnualLeave()-1);										
+				}else if(leaveApplication.getType().equals("Sick Leave")) {
+					employee.setSickLeave(employee.getSickLeave()-1);
+				}
+				
+				employeeController.updateEmployee(employee);
+				
+			}
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +111,7 @@ public class LeaveApplicationController {
 		
 	}
 
-	public LeaveApplication searchLeaveApplicationByID(int leaveID) {
+	public LeaveApplication searchLeaveApplicationByID(int leaveID) throws ItemNotAvailableForUpdateException {
 		
 		LeaveApplication leaveApplication = null;
 		
@@ -111,6 +128,12 @@ public class LeaveApplicationController {
 			while(result.next()) {
 				
 				leaveApplication = getLeaveApplicationFromResult(result);
+				
+				if(leaveApplication.getStatus().equals("Accept")) {
+					
+					throw new ItemNotAvailableForUpdateException();
+					
+				}
 				
 				return leaveApplication;
 				
@@ -130,10 +153,11 @@ public class LeaveApplicationController {
 	private LeaveApplication getLeaveApplicationFromResult(ResultSet result) throws SQLException {
 		LeaveApplication leaveApplication;
 		leaveApplication = new LeaveApplication();
-		leaveApplication.setEmployeeID(result.getInt(1));
-		leaveApplication.setDate(result.getDate(2));
-		leaveApplication.setType(result.getString(3));
-		leaveApplication.setStatus(result.getString(4));
+		leaveApplication.setLeaveID(result.getInt(1));
+		leaveApplication.setEmployeeID(result.getInt(2));
+		leaveApplication.setDate(result.getDate(3));
+		leaveApplication.setType(result.getString(4));
+		leaveApplication.setStatus(result.getString(5));
 		return leaveApplication;
 	}
 
@@ -170,4 +194,70 @@ public class LeaveApplicationController {
 		
 	}
 	
+	public ArrayList<LeaveApplication> getApprovedLeaveApplicationListByEmployeeID(int employeeID){
+		
+		ArrayList<LeaveApplication> leaveApplicationList = new ArrayList<LeaveApplication>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from leave_application where employee_id = ? and status = 'approved'";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, employeeID);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+				
+				leaveApplicationList.add(getLeaveApplicationFromResult(result));
+				
+			}
+			
+			return leaveApplicationList;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public ArrayList<LeaveApplication> getLeaveApplicationListByEmployeeID(int employeeID){
+		
+		ArrayList<LeaveApplication> leaveApplicationList = new ArrayList<LeaveApplication>();
+		
+		try {
+			Connection con = dbController.getConnection();
+			
+			String query = "select * from leave_application where employee_id = ?";
+			
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setInt(1, employeeID);
+			
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next()) {
+				
+				leaveApplicationList.add(getLeaveApplicationFromResult(result));
+				
+			}
+			
+			return leaveApplicationList;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 }

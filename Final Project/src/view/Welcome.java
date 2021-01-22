@@ -131,8 +131,7 @@ public class Welcome {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				mainFrame.dispose();
-				//apply page main method
-				
+				new OptionApply().main(null);
 			}
 			
 			

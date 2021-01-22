@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class OptionManagePayroll {
@@ -51,23 +54,47 @@ public class OptionManagePayroll {
 		optionOfManagePayrollFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Select An Action");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
-		lblNewLabel.setBounds(160, 22, 171, 28);
-		panel.add(lblNewLabel);
+		JLabel selectAnActionLabel = new JLabel("Select An Action");
+		selectAnActionLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+		selectAnActionLabel.setBounds(160, 22, 171, 28);
+		panel.add(selectAnActionLabel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 80, 486, 203);
 		optionOfManagePayrollFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(2,1));
 		
-		JButton btnNewButton = new JButton("Generate Payroll");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_2.add(btnNewButton);
+		JButton generatePayrollButton = new JButton("Generate Payroll");
+		generatePayrollButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_2.add(generatePayrollButton);
 		
-		JButton btnNewButton_1 = new JButton("Delete Payroll");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		panel_2.add(btnNewButton_1);
+		generatePayrollButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfManagePayrollFrame.dispose();
+				new GeneratePayroll().main(null);
+			}
+			
+			
+		});
+		
+		JButton deletePayrollButton = new JButton("Delete Payroll");
+		deletePayrollButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		panel_2.add(deletePayrollButton);
+		
+		deletePayrollButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionOfManagePayrollFrame.dispose();
+				new DeletePayroll().main(null);				
+			}
+			
+			
+		});
 	}
 
 }

@@ -5,18 +5,28 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import controller.ClaimController;
+import model.Claim;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JComboBox;
 
 public class AddClaim {
 
 	private JFrame addClaimFrame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField employeeIDField;
+	private JTextField amountField;
+	private JTextField dateField;
 
 	/**
 	 * Launch the application.
@@ -56,85 +66,137 @@ public class AddClaim {
 		addClaimFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee Information: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 205, 20);
-		panel.add(lblNewLabel);
+		JLabel employeeInformationLabel = new JLabel("Employee Information: ");
+		employeeInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		employeeInformationLabel.setBounds(0, 0, 205, 20);
+		panel.add(employeeInformationLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 81, 486, 80);
 		addClaimFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_1.setBounds(80, 33, 88, 13);
-		panel_1.add(lblNewLabel_1);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(80, 33, 88, 13);
+		panel_1.add(employeeIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(170, 30, 225, 19);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(170, 30, 225, 19);
+		panel_1.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 171, 486, 24);
 		addClaimFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Claim Information: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(0, 0, 178, 24);
-		panel_2.add(lblNewLabel_2);
+		JLabel claimInformationLabel = new JLabel("Claim Information: ");
+		claimInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		claimInformationLabel.setBounds(0, 0, 178, 24);
+		panel_2.add(claimInformationLabel);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 205, 486, 80);
 		addClaimFrame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Amount: ");
-		lblNewLabel_3.setBounds(95, 0, 210, 80);
-		lblNewLabel_3.setFont(new Font("Verdana", Font.PLAIN, 10));
-		panel_3.add(lblNewLabel_3);
+		JLabel amountLabel = new JLabel("Amount: ");
+		amountLabel.setBounds(95, 0, 210, 80);
+		amountLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		panel_3.add(amountLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(170, 31, 225, 19);
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		amountField = new JTextField();
+		amountField.setBounds(170, 31, 225, 19);
+		panel_3.add(amountField);
+		amountField.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(10, 295, 486, 40);
 		addClaimFrame.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(51, 10, 85, 21);
-		panel_4.add(btnNewButton_1);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(51, 10, 85, 21);
+		panel_4.add(resetButton);
 		
-		JButton btnNewButton_2 = new JButton("Go Back");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(351, 10, 85, 21);
-		panel_4.add(btnNewButton_2);
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				employeeIDField.setText("");
+				amountField.setText("");
+				dateField.setText("");
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_3 = new JButton("Apply");
-		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_3.setBounds(201, 10, 85, 21);
-		panel_4.add(btnNewButton_3);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(351, 10, 85, 21);
+		panel_4.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				addClaimFrame.dispose();
+				new OptionApply().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton applyButton = new JButton("Apply");
+		applyButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		applyButton.setBounds(201, 10, 85, 21);
+		panel_4.add(applyButton);
+		
+		applyButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Claim claim = new Claim();
+				try {
+					
+					claim.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
+					claim.setAmount(Double.parseDouble(amountField.getText()));
+					claim.setDate(Date.valueOf(dateField.getText()));
+					claim.setStatus("Processing");
+					
+					ClaimController claimController = new ClaimController();
+					claimController.insertClaim(claim);
+					
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				}catch(IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
+				
+			}
+			
+		});
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBounds(10, 10, 486, 30);
 		addClaimFrame.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Date: ");
-		lblNewLabel_5.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_5.setBounds(290, 10, 45, 13);
-		panel_5.add(lblNewLabel_5);
+		JLabel dateLabel = new JLabel("Date: ");
+		dateLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		dateLabel.setBounds(290, 10, 45, 13);
+		panel_5.add(dateLabel);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(335, 7, 141, 19);
-		panel_5.add(textField_3);
-		textField_3.setColumns(10);
+		dateField = new JTextField();
+		dateField.setBounds(335, 7, 141, 19);
+		panel_5.add(dateField);
+		dateField.setColumns(10);
 	}
 
 }

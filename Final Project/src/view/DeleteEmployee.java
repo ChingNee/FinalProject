@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -117,14 +119,21 @@ public class DeleteEmployee {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int employeeID = Integer.parseInt(employeeIDField.getText());
-				
-				EmployeeController employeeController = new EmployeeController();
-				employeeController.deleteEmployeeByID(employeeID);
-				
+				try {
+
+					int employeeID = Integer.parseInt(employeeIDField.getText());
+
+					EmployeeController employeeController = new EmployeeController();
+					employeeController.deleteEmployeeByID(employeeID);
+
+				} catch (NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				} catch (NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				} catch (IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}				
 			}
-			
-			
 		});
 	}
 

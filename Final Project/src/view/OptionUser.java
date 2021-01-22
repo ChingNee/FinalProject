@@ -83,29 +83,115 @@ public class OptionUser {
 		manageClaimButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(manageClaimButton);
 		
+		manageClaimButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new UpdateClaim().main(null);
+			}
+			
+			
+		});
+		
 		JButton manageLeaveApplicationButton = new JButton("Manage Leave Application");
 		manageLeaveApplicationButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(manageLeaveApplicationButton);
+		
+		manageLeaveApplicationButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new UpdateLeave().main(null);
+			}
+			
+			
+		});
 		
 		JButton managePayrollButton = new JButton("Manage Payroll");
 		managePayrollButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(managePayrollButton);
 		
+		managePayrollButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new OptionManagePayroll().main(null);
+				
+			}
+			
+		});
+		
 		JButton viewEmployeeListButton = new JButton("View Employee List");
 		viewEmployeeListButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewEmployeeListButton);
+		
+		viewEmployeeListButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new ViewEmployeeList().main(null);
+			}
+			
+			
+		});
 		
 		JButton viewClaimListButton = new JButton("View Claim List");
 		viewClaimListButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewClaimListButton);
 		
+		viewClaimListButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new ViewClaimList().main(null);
+			}
+			
+			
+		});
+		
 		JButton viewLeaveListButton = new JButton("View Leave List");
 		viewLeaveListButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewLeaveListButton);
 		
+		viewLeaveListButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new ViewLeaveList().main(null);
+				
+			}
+			
+			
+		});
+		
 		JButton viewPayrollListButton = new JButton("View Payroll List");
 		viewPayrollListButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewPayrollListButton);
+		
+		viewPayrollListButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				optionScreenFrame.dispose();
+				new ViewPayrollList().main(null);
+				
+			}
+			
+			
+		});
 	}
 
 }

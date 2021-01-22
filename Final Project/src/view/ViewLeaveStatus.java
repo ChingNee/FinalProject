@@ -5,18 +5,31 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import controller.LeaveApplicationController;
+import model.LeaveApplication;
+
 public class ViewLeaveStatus {
 
 	private JFrame viewLeaveStatusFrame;
-	private JTextField textField;
-	private JTable table;
+	private JTextField employeeIDField;
+	private JTable leaveTable;
+	private String[] cols = {"Leave ID", "Employee ID", "Type", "Date", "Status"};
+	private String[][] data = {};
+	private DefaultTableModel model = new DefaultTableModel(data,cols);
 
 	/**
 	 * Launch the application.
@@ -56,95 +69,110 @@ public class ViewLeaveStatus {
 		viewLeaveStatusFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee Information: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 205, 25);
-		panel.add(lblNewLabel);
+		JLabel employeeInfomationLabel = new JLabel("Employee Information: ");
+		employeeInfomationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		employeeInfomationLabel.setBounds(0, 0, 205, 25);
+		panel.add(employeeInfomationLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 40, 486, 65);
 		viewLeaveStatusFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_1.setBounds(50, 24, 82, 13);
-		panel_1.add(lblNewLabel_1);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(50, 24, 82, 13);
+		panel_1.add(employeeIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(142, 21, 194, 19);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(142, 21, 194, 19);
+		panel_1.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Search");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(346, 20, 85, 21);
-		panel_1.add(btnNewButton);
+		JButton searchButton = new JButton("Search");
+		searchButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		searchButton.setBounds(346, 20, 85, 21);
+		panel_1.add(searchButton);
+		
+		searchButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				try {
+					
+					int employeeIDFieldValue = Integer.parseInt(employeeIDField.getText());
+
+					LeaveApplicationController leaveApplicationController = new LeaveApplicationController();
+					ArrayList<LeaveApplication> leaveList = leaveApplicationController.getLeaveApplicationListByEmployeeID(employeeIDFieldValue);
+					
+					model = new DefaultTableModel(data,cols);
+
+					for(LeaveApplication leave : leaveList) {
+						
+						int leaveID = leave.getLeaveID();
+						int employeeID = leave.getEmployeeID();
+						Date date = leave.getDate();
+						String type = leave.getType();
+						String status = leave.getStatus();
+						
+						Object[] row = {leaveID,employeeID,type,date,status};
+						model.addRow(row);
+						
+					}
+					
+					leaveTable.setModel(model);
+					
+				} catch (NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				} catch (NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				}
+				
+			}
+			
+			
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 115, 486, 25);
 		viewLeaveStatusFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Leave Information: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(0, 0, 172, 25);
-		panel_2.add(lblNewLabel_2);
+		JLabel leaveInformationLabel = new JLabel("Leave Information: ");
+		leaveInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		leaveInformationLabel.setBounds(0, 0, 172, 25);
+		panel_2.add(leaveInformationLabel);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 288, 486, 65);
 		viewLeaveStatusFrame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Go Back");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(391, 22, 85, 21);
-		panel_3.add(btnNewButton_1);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(391, 22, 85, 21);
+		panel_3.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				viewLeaveStatusFrame.dispose();
+				new OptionApply().main(null);
+			}
+			
+			
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 145, 486, 136);
 		viewLeaveStatusFrame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Leave ID", "Employee ID", "Type", "Date", "Status"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		scrollPane.setViewportView(table);
+		leaveTable = new JTable();
+		leaveTable.setModel(model);
+		scrollPane.setViewportView(leaveTable);
 	}
 }

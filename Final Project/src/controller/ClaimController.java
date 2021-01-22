@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import database.connection.DBController;
+import exception.ItemNotAvailableForUpdateException;
 import model.Claim;
 
 public class ClaimController {
@@ -50,7 +51,7 @@ public class ClaimController {
 		try {
 			Connection con = dbController.getConnection();
 
-			String query = "update claim set" + "employee_id =?," + "amount = ?," + "status = ?,"+"date = ? "
+			String query = "update claim set " + "employee_id = ?," + "amount = ?," + "status = ?,"+"date = ? "
 					+ "where claim_id = ?";
 			
 			PreparedStatement statement = con.prepareStatement(query);
@@ -96,7 +97,7 @@ public class ClaimController {
 		
 	}
 
-	public Claim searchClaimByID(int claimID) {
+	public Claim searchClaimByID(int claimID) throws ItemNotAvailableForUpdateException {
 		
 		Claim claim = null;
 		
@@ -113,6 +114,10 @@ public class ClaimController {
 			while(result.next()) {
 				
 				claim = getClaimFromResult(result);
+				
+				if(claim.getStatus().equals("Archived")||claim.getStatus().equals("Accept")) {
+					throw new ItemNotAvailableForUpdateException();
+				}
 				
 				return claim;
 				

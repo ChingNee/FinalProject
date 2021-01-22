@@ -8,13 +8,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+
+import controller.ClaimController;
+import model.Claim;
 
 public class ViewClaimList {
 
 	private JFrame viewClaimListFrame;
-	private JTable table;
+	private JTable claimTable;
+	private String[] cols = {"Claim ID", "Employee ID", "Amount", "Date", "Status"};
+	private String[][] data = {};
+	private DefaultTableModel model = new DefaultTableModel(data,cols);
 
 	/**
 	 * Launch the application.
@@ -49,10 +60,10 @@ public class ViewClaimList {
 		viewClaimListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		viewClaimListFrame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Claim List");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel.setBounds(200, 10, 94, 25);
-		viewClaimListFrame.getContentPane().add(lblNewLabel);
+		JLabel claimListLabel = new JLabel("Claim List");
+		claimListLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		claimListLabel.setBounds(200, 10, 94, 25);
+		viewClaimListFrame.getContentPane().add(claimListLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 10, 486, 25);
@@ -64,61 +75,42 @@ public class ViewClaimList {
 		viewClaimListFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Go Back");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(391, 5, 85, 21);
-		panel_1.add(btnNewButton);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(391, 5, 85, 21);
+		panel_1.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				viewClaimListFrame.dispose();
+				new OptionUser().main(null);
+			}
+			
+			
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 38, 486, 280);
 		viewClaimListFrame.getContentPane().add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Claim ID", "Employee ID", "Amount", "Status", "Date"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Integer.class, Double.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		table.setFont(new Font("Verdana", Font.PLAIN, 10));
-		scrollPane.setViewportView(table);
+		claimTable = new JTable();
+		ClaimController claimController = new ClaimController();
+		ArrayList<Claim> claimList = claimController.getClaimList();
+		for(Claim claim : claimList) {
+			int claimID = claim.getClaimID();
+			int employeeID = claim.getEmployeeID();
+			double amount = claim.getAmount();
+			String status = claim.getStatus();
+			Date date = claim.getDate();
+								
+			Object[] row = {claimID,employeeID,amount,status,date};
+			model.addRow(row);
+		}
+		claimTable.setModel(model);
+		claimTable.setFont(new Font("Verdana", Font.PLAIN, 10));
+		scrollPane.setViewportView(claimTable);
 	}
 }

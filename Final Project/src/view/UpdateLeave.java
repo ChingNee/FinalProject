@@ -5,19 +5,31 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+
+import controller.LeaveApplicationController;
+import exception.ItemNotAvailableForUpdateException;
+import model.LeaveApplication;
+
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+
 import javax.swing.JComboBox;
 
 public class UpdateLeave {
 
 	private JFrame updateLeaveFrame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField leaveIDField;
+	private JTextField employeeIDField;
+	private JTextField typeField;
+	private JTextField dateField;
+	private JComboBox statusField;
 
 	/**
 	 * Launch the application.
@@ -57,106 +69,194 @@ public class UpdateLeave {
 		updateLeaveFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee Information: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 205, 25);
-		panel.add(lblNewLabel);
+		JLabel searchInformationLabel = new JLabel("Search Information: ");
+		searchInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		searchInformationLabel.setBounds(0, 0, 205, 25);
+		panel.add(searchInformationLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 40, 486, 60);
 		updateLeaveFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_1.setBounds(40, 26, 83, 13);
-		panel_1.add(lblNewLabel_1);
+		JLabel leaveIDLabel = new JLabel("Leave ID: ");
+		leaveIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		leaveIDLabel.setBounds(40, 26, 83, 13);
+		panel_1.add(leaveIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(130, 23, 200, 19);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		leaveIDField = new JTextField();
+		leaveIDField.setBounds(130, 23, 200, 19);
+		panel_1.add(leaveIDField);
+		leaveIDField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Search");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(351, 22, 85, 21);
-		panel_1.add(btnNewButton);
+		JButton searchButton = new JButton("Search");
+		searchButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		searchButton.setBounds(351, 22, 85, 21);
+		panel_1.add(searchButton);
+		
+		searchButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					
+					int leaveID = Integer.parseInt(leaveIDField.getText());
+					LeaveApplicationController leaveController = new LeaveApplicationController();
+					LeaveApplication leave = leaveController.searchLeaveApplicationByID(leaveID);
+					employeeIDField.setText(Integer.toString(leave.getEmployeeID()));
+					typeField.setText(leave.getType());
+					dateField.setText(leave.getDate().toString());
+					statusField.setSelectedItem(leave.getStatus());
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Leave application does not exist");
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");					
+				} catch (ItemNotAvailableForUpdateException itemNotAvailableException) {
+					new JOptionPane().showMessageDialog(null, itemNotAvailableException.getMessage());					
+				}
+			
+			}
+			
+			
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 105, 486, 25);
 		updateLeaveFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Claim Information: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(0, 0, 195, 25);
-		panel_2.add(lblNewLabel_2);
+		JLabel leaveInformationLabel = new JLabel("Leave Information: ");
+		leaveInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		leaveInformationLabel.setBounds(0, 0, 195, 25);
+		panel_2.add(leaveInformationLabel);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 293, 486, 60);
 		updateLeaveFrame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Reset");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(49, 10, 85, 21);
-		panel_3.add(btnNewButton_1);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(49, 10, 85, 21);
+		panel_3.add(resetButton);
 		
-		JButton btnNewButton_2 = new JButton("Go Back");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(350, 10, 85, 21);
-		panel_3.add(btnNewButton_2);
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				leaveIDField.setText("");
+				employeeIDField.setText("");
+				typeField.setText("");
+				dateField.setText("");
+				statusField.setSelectedIndex(0);
+				
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_3 = new JButton("Update");
-		btnNewButton_3.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_3.setBounds(200, 10, 85, 21);
-		panel_3.add(btnNewButton_3);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(350, 10, 85, 21);
+		panel_3.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				updateLeaveFrame.dispose();
+				new OptionUser().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton updateButton = new JButton("Update");
+		updateButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		updateButton.setBounds(200, 10, 85, 21);
+		panel_3.add(updateButton);
+		
+		updateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				try {
+
+					LeaveApplicationController leaveController = new LeaveApplicationController();
+					LeaveApplication leave = new LeaveApplication();
+					leave.setLeaveID(Integer.parseInt(leaveIDField.getText()));
+					leave.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
+					leave.setType(typeField.getText());
+					leave.setStatus((String) statusField.getSelectedItem());
+					leave.setDate(Date.valueOf(dateField.getText()));
+
+					leaveController.updateLeaveApplication(leave);
+
+				} catch (NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				} catch (NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				} catch (IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
+							
+			}
+			
+			
+		});
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(10, 135, 486, 152);
 		updateLeaveFrame.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Leave ID: ");
-		lblNewLabel_3.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_3.setBounds(10, 0, 222, 77);
-		panel_4.add(lblNewLabel_3);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(10, 0, 222, 77);
+		panel_4.add(employeeIDLabel);
 		
-		JLabel lblNewLabel_4 = new JLabel("Date: ");
-		lblNewLabel_4.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_4.setBounds(254, 0, 222, 77);
-		panel_4.add(lblNewLabel_4);
+		JLabel dateLabel = new JLabel("Date: ");
+		dateLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		dateLabel.setBounds(254, 0, 222, 77);
+		panel_4.add(dateLabel);
 		
-		JLabel lblNewLabel_5 = new JLabel("Type: ");
-		lblNewLabel_5.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_5.setBounds(10, 77, 222, 77);
-		panel_4.add(lblNewLabel_5);
+		JLabel typeLabel = new JLabel("Type: ");
+		typeLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		typeLabel.setBounds(10, 77, 222, 77);
+		panel_4.add(typeLabel);
 		
-		JLabel lblNewLabel_6 = new JLabel("Status: ");
-		lblNewLabel_6.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_6.setBounds(254, 77, 222, 77);
-		panel_4.add(lblNewLabel_6);
+		JLabel statusLabel = new JLabel("Status: ");
+		statusLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		statusLabel.setBounds(254, 77, 222, 77);
+		panel_4.add(statusLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(75, 29, 155, 19);
-		panel_4.add(textField_1);
-		textField_1.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(100, 29, 130, 19);
+		panel_4.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(75, 106, 155, 19);
-		panel_4.add(textField_2);
-		textField_2.setColumns(10);
+		typeField = new JTextField();
+		typeField.setBounds(100, 106, 130, 19);
+		panel_4.add(typeField);
+		typeField.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(310, 29, 155, 19);
-		panel_4.add(textField_3);
-		textField_3.setColumns(10);
+		dateField = new JTextField();
+		dateField.setBounds(310, 29, 155, 19);
+		panel_4.add(dateField);
+		dateField.setColumns(10);
 		
 		String[] choices = {"Processing", "Accept", "Reject"};
-		JComboBox comboBox = new JComboBox(choices);
-		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(310, 105, 155, 21);
-		panel_4.add(comboBox);
+		statusField = new JComboBox(choices);
+		statusField.setSelectedIndex(0);
+		statusField.setBounds(310, 105, 155, 21);
+		panel_4.add(statusField);
 	}
 
 }

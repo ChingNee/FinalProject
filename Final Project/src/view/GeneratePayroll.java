@@ -5,8 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
+
+import controller.PayrollController;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -14,7 +22,8 @@ import javax.swing.JSpinner;
 public class GeneratePayroll {
 
 	private JFrame generatePayrollFrame;
-	private JTextField textField;
+	private JTextField employeeIDField;
+	private JSpinner overTimeField;
 
 	/**
 	 * Launch the application.
@@ -54,68 +63,118 @@ public class GeneratePayroll {
 		generatePayrollFrame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee Information: ");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 205, 23);
-		panel.add(lblNewLabel);
+		JLabel employeeInformationLabel = new JLabel("Employee Information: ");
+		employeeInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		employeeInformationLabel.setBounds(0, 0, 205, 23);
+		panel.add(employeeInformationLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 45, 486, 60);
 		generatePayrollFrame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee ID: ");
-		lblNewLabel_1.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_1.setBounds(80, 21, 88, 13);
-		panel_1.add(lblNewLabel_1);
+		JLabel employeeIDLabel = new JLabel("Employee ID: ");
+		employeeIDLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		employeeIDLabel.setBounds(80, 21, 88, 13);
+		panel_1.add(employeeIDLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(175, 18, 200, 19);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		employeeIDField = new JTextField();
+		employeeIDField.setBounds(175, 18, 200, 19);
+		panel_1.add(employeeIDField);
+		employeeIDField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 114, 486, 25);
 		generatePayrollFrame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Working Hour Information: ");
-		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(0, 0, 241, 23);
-		panel_2.add(lblNewLabel_2);
+		JLabel workingInformationLabel = new JLabel("Working Hour Information: ");
+		workingInformationLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		workingInformationLabel.setBounds(0, 0, 241, 23);
+		panel_2.add(workingInformationLabel);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 149, 486, 60);
 		generatePayrollFrame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Overtime Hour: ");
-		lblNewLabel_3.setFont(new Font("Verdana", Font.PLAIN, 10));
-		lblNewLabel_3.setBounds(78, 23, 98, 13);
-		panel_3.add(lblNewLabel_3);
+		JLabel overtimeHourLabel = new JLabel("Overtime Hour: ");
+		overtimeHourLabel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		overtimeHourLabel.setBounds(78, 23, 98, 13);
+		panel_3.add(overtimeHourLabel);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(175, 16, 200, 20);
-		panel_3.add(spinner);
+		overTimeField = new JSpinner();
+		overTimeField.setBounds(175, 16, 200, 20);
+		panel_3.add(overTimeField);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(10, 217, 486, 60);
 		generatePayrollFrame.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Reset");
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton.setBounds(50, 15, 85, 21);
-		panel_4.add(btnNewButton);
+		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		resetButton.setBounds(50, 15, 85, 21);
+		panel_4.add(resetButton);
 		
-		JButton btnNewButton_1 = new JButton("Go Back");
-		btnNewButton_1.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_1.setBounds(350, 15, 85, 21);
-		panel_4.add(btnNewButton_1);
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				employeeIDField.setText("");
+				overTimeField.setValue(0);
+				
+			}
+			
+			
+		});
 		
-		JButton btnNewButton_2 = new JButton("Generate");
-		btnNewButton_2.setFont(new Font("Verdana", Font.BOLD, 10));
-		btnNewButton_2.setBounds(200, 15, 94, 21);
-		panel_4.add(btnNewButton_2);
+		JButton goBackButton = new JButton("Go Back");
+		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		goBackButton.setBounds(350, 15, 85, 21);
+		panel_4.add(goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				generatePayrollFrame.dispose();
+				new OptionManagePayroll().main(null);
+				
+			}
+			
+			
+		});
+		
+		JButton generateButton = new JButton("Generate");
+		generateButton.setFont(new Font("Verdana", Font.BOLD, 10));
+		generateButton.setBounds(200, 15, 94, 21);
+		panel_4.add(generateButton);
+		
+		generateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+
+					int employeeID = Integer.parseInt(employeeIDField.getText());
+					int overTimeHour = (int) overTimeField.getValue();
+					PayrollController payrollController = new PayrollController();
+					payrollController.generatePayroll(employeeID, overTimeHour);
+
+				} catch (NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				} catch (NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");
+				} catch (IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
+
+			}
+			
+		});
 	}
 }

@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 public class AddEmployee {
@@ -221,21 +222,33 @@ public class AddEmployee {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Employee employee = new Employee();
-				employee.setEmployeeName(nameField.getText());
-				employee.setEmployeePosition(positionField.getText());
-				employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
-				employee.setAnnualLeave((int)annualLeaveField.getValue());
-				employee.setSickLeave((int)sickLeaveField.getValue());
-				employee.setGender((String)genderField.getSelectedItem());
-				employee.setAccountNo(Integer.parseInt(accNoField.getText()));
-				employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
-				employee.setAge((int)ageField.getValue());
-				employee.setPhoneNo(phoneNoField.getText());
 				
-				EmployeeController employeeController = new EmployeeController();
+				try {
+					
+					Employee employee = new Employee();
+					employee.setEmployeeName(nameField.getText());
+					employee.setEmployeePosition(positionField.getText());
+					employee.setEmployeeSalary(Double.parseDouble(salaryField.getText()));
+					employee.setAnnualLeave((int)annualLeaveField.getValue());
+					employee.setSickLeave((int)sickLeaveField.getValue());
+					employee.setGender((String)genderField.getSelectedItem());
+					employee.setAccountNo(Integer.parseInt(accNoField.getText()));
+					employee.setDateJoined(Date.valueOf(dateJoinedField.getText()));
+					employee.setAge((int)ageField.getValue());
+					employee.setPhoneNo(phoneNoField.getText());
+					
+					EmployeeController employeeController = new EmployeeController();
+					
+					employeeController.insertEmployee(employee);
+					
+				}catch(NullPointerException nullException) {
+					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
+				}catch(NumberFormatException numberException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for number value. Please try again");					
+				}catch(IllegalArgumentException dateException) {
+					new JOptionPane().showMessageDialog(null, "Invalid input for date value. Please try again");
+				}
 				
-				employeeController.insertEmployee(employee);
 				
 			}
 			

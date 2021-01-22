@@ -18,7 +18,11 @@ public class UserController {
 		
 	}
 	
-	public void insertUser(User user) {
+	public void insertUser(User user) throws NullPointerException {
+		
+		if(user.getUserID().isEmpty() || user.getPassword().isEmpty() || user.getFullName().isEmpty()) {
+			throw new NullPointerException();
+		}
 		
 		try {
 			
@@ -135,7 +139,11 @@ public class UserController {
 		
 	}
 	
-	public boolean login(String userID, String password) {
+	public boolean login(String userID, String password) throws NullPointerException {
+		
+		if(userID.isEmpty() || password.isEmpty()) {
+			throw new NullPointerException();
+		}
 		
 		try {
 			Connection con = dbController.getConnection();
