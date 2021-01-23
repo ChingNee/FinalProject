@@ -91,8 +91,8 @@ public class ViewEmployeeList {
 			int age = employee.getAge();
 			String phoneNo = employee.getPhoneNo();
 			
-			Object[] row = {employeeID,employeeName,employeePosition,employeeSalary,
-					annualLeave,sickLeave,gender,accountNo,dateJoined,age,phoneNo};
+			Object[] row = {employeeID,employeeName,phoneNo,gender,age,
+					accountNo,dateJoined,employeePosition,employeeSalary,sickLeave,annualLeave};
 			model.addRow(row);
 			
 		}

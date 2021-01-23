@@ -174,11 +174,13 @@ public class AddEmployee {
 		resetButton.setBounds(60, 10, 85, 21);
 		panel_2.add(resetButton);
 		
+		//set action listener for resetButton
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//reset fields
 				nameField.setText("");
 				positionField.setText("");
 				salaryField.setText("");
@@ -200,13 +202,15 @@ public class AddEmployee {
 		goBackButton.setBounds(345, 10, 85, 21);
 		panel_2.add(goBackButton);
 		
+		//set action listener for goBackButton
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//dispose current frame and open new frame
 				addEmployeeFrame.dispose();
-				new OptionManageEmployee().main(null);
+				new OptionUser().main(null);
 				
 			}
 			
@@ -217,14 +221,15 @@ public class AddEmployee {
 		addButton.setBounds(205, 10, 85, 21);
 		panel_2.add(addButton);
 		
+		//set action listener for addButton
 		addButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+
 				try {
 					
+					//create and set employee object from fields
 					Employee employee = new Employee();
 					employee.setEmployeeName(nameField.getText());
 					employee.setEmployeePosition(positionField.getText());
@@ -237,8 +242,10 @@ public class AddEmployee {
 					employee.setAge((int)ageField.getValue());
 					employee.setPhoneNo(phoneNoField.getText());
 					
+					//create employee controller object
 					EmployeeController employeeController = new EmployeeController();
 					
+					//insert employee
 					employeeController.insertEmployee(employee);
 					
 				}catch(NullPointerException nullException) {

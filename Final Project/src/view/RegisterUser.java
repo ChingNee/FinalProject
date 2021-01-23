@@ -147,7 +147,7 @@ public class RegisterUser {
 					usrController.insertUser(user);
 					
 					registerScreenFrame.dispose();
-					new OptionUser().main(null);
+					new LoginUser().main(null);
 					
 				}catch(NullPointerException exception) {
 					new JOptionPane().showMessageDialog(null, "Please complete the fields.");					

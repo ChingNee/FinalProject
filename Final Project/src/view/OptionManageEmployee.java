@@ -102,6 +102,18 @@ public class OptionManageEmployee {
 		deleteEmployeeButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(deleteEmployeeButton);
 		
+		deleteEmployeeButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				optionOfManageEmployeeFrame.dispose();
+				new DeleteEmployee().main(null);
+				
+			}
+			
+		});
+		
 	}
 
 }

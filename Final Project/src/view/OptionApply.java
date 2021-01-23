@@ -68,11 +68,13 @@ public class OptionApply {
 		addClaimButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(addClaimButton);
 		
+		//set action listener for add claim button
 		addClaimButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				optionOfApplyFrame.dispose();
 				new AddClaim().main(null);
 				
@@ -85,11 +87,13 @@ public class OptionApply {
 		addLeaveButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(addLeaveButton);
 		
+		//set action listener for add leave button
 		addLeaveButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				optionOfApplyFrame.dispose();
 				new AddLeave().main(null);
 				
@@ -102,11 +106,13 @@ public class OptionApply {
 		viewClaimStatusButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewClaimStatusButton);
 		
+		//set action listener for view claim status button
 		viewClaimStatusButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				optionOfApplyFrame.dispose();
 				new ViewClaimStatus().main(null);
 				
@@ -119,11 +125,13 @@ public class OptionApply {
 		viewLeaveStatusButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		panel_1.add(viewLeaveStatusButton);
 		
+		//set action listener for view leave status button
 		viewLeaveStatusButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				optionOfApplyFrame.dispose();
 				new ViewLeaveStatus().main(null);
 				

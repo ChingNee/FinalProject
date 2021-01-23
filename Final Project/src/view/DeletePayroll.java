@@ -79,11 +79,13 @@ public class DeletePayroll {
 		resetButton.setBounds(62, 40, 85, 21);
 		panel_1.add(resetButton);
 		
+		//set action listener for resetButton
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//reset field
 				payrollIDField.setText("");
 				
 			}
@@ -95,13 +97,15 @@ public class DeletePayroll {
 		goBackButton.setBounds(341, 40, 85, 21);
 		panel_1.add(goBackButton);
 		
+		//set action listener for goBackButton
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				deletePayrollFrame.dispose();
-				new OptionManagePayroll().main(null);
+				new OptionUser().main(null);
 				
 			}
 			
@@ -113,15 +117,20 @@ public class DeletePayroll {
 		deleteButton.setBounds(201, 40, 85, 21);
 		panel_1.add(deleteButton);
 		
+		//set action listener for delete Button
 		deleteButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
 					
+					//get payroll ID from field
 					int payrollID = Integer.parseInt(payrollIDField.getText());
+					
+					//create payroll controller object
 					PayrollController payrollController = new PayrollController();
+					
+					//delete payroll
 					payrollController.deletePayrollById(payrollID);
 					
 				}catch(NullPointerException nullException) {

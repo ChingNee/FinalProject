@@ -80,11 +80,13 @@ public class DeleteEmployee {
 		resetButton.setBounds(62, 40, 85, 21);
 		panel_1.add(resetButton);
 		
+		//set action listener for resetButton
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//reset fields
 				employeeIDField.setText("");
 			}
 			
@@ -96,13 +98,15 @@ public class DeleteEmployee {
 		goBackButton.setBounds(341, 40, 85, 21);
 		panel_1.add(goBackButton);
 		
+		//set action listener for goBackButton
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				deleteEmployeeFrame.dispose();
-				new OptionManageEmployee().main(null);
+				new OptionUser().main(null);
 				
 			}
 			
@@ -114,16 +118,19 @@ public class DeleteEmployee {
 		deleteButton.setBounds(201, 40, 85, 21);
 		panel_1.add(deleteButton);
 		
+		//set action listener for deleteButton
 		deleteButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				try {
-
+					//get employee ID from field
 					int employeeID = Integer.parseInt(employeeIDField.getText());
 
+					//create employee controller object
 					EmployeeController employeeController = new EmployeeController();
+					
+					//delete employee
 					employeeController.deleteEmployeeByID(employeeID);
 
 				} catch (NullPointerException nullException) {

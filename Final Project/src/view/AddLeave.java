@@ -138,11 +138,13 @@ public class AddLeave {
 		goBackButton.setBounds(349, 29, 85, 21);
 		panel_5.add(goBackButton);
 		
+		//set action listener for goBackButton
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//dispose current frame and open new frame
 				addLeaveFrame.dispose();
 				new OptionApply().main(null);
 				
@@ -156,11 +158,13 @@ public class AddLeave {
 		resetButton.setBounds(49, 29, 85, 21);
 		panel_5.add(resetButton);
 		
+		//set action listener for resetButton
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//reset fields
 				dateField.setText("");
 				employeeIDField.setText("");
 				typeField.setSelectedIndex(0);
@@ -175,6 +179,7 @@ public class AddLeave {
 		applyButton.setBounds(199, 29, 85, 21);
 		panel_5.add(applyButton);
 		
+		//set action listener for applyButton
 		applyButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -182,13 +187,17 @@ public class AddLeave {
 
 				try {
 					
+					//create and set leave application object from fields
 					LeaveApplication leaveApplication = new LeaveApplication();
 					leaveApplication.setDate(Date.valueOf(dateField.getText()));
 					leaveApplication.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
 					leaveApplication.setType((String)typeField.getSelectedItem());
 					leaveApplication.setStatus("Processing");
 					
+					//create leave application controller
 					LeaveApplicationController leaveApplicationController = new LeaveApplicationController();
+					
+					//insert leave application
 					leaveApplicationController.insertLeaveApplication(leaveApplication);
 					
 				}catch(NullPointerException nullException) {

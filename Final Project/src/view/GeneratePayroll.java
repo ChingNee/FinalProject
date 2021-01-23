@@ -117,11 +117,13 @@ public class GeneratePayroll {
 		resetButton.setBounds(50, 15, 85, 21);
 		panel_4.add(resetButton);
 		
+		//set action listener for reset button
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//reset fields
 				employeeIDField.setText("");
 				overTimeField.setValue(0);
 				
@@ -135,13 +137,15 @@ public class GeneratePayroll {
 		goBackButton.setBounds(350, 15, 85, 21);
 		panel_4.add(goBackButton);
 		
+		//set action listener for go back button
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//dispose current frame and open new frame
 				generatePayrollFrame.dispose();
-				new OptionManagePayroll().main(null);
+				new OptionUser().main(null);
 				
 			}
 			
@@ -153,16 +157,22 @@ public class GeneratePayroll {
 		generateButton.setBounds(200, 15, 94, 21);
 		panel_4.add(generateButton);
 		
+		//set action listener for generate button
 		generateButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-
+					
+					//get employee ID and overtime hour from field
 					int employeeID = Integer.parseInt(employeeIDField.getText());
 					int overTimeHour = (int) overTimeField.getValue();
+					
+					//create payroll controller object
 					PayrollController payrollController = new PayrollController();
+					
+					//generate payroll
 					payrollController.generatePayroll(employeeID, overTimeHour);
 
 				} catch (NullPointerException nullException) {

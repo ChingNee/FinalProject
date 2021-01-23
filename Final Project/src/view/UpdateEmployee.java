@@ -295,7 +295,7 @@ public class UpdateEmployee {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				updateEmployeeFrame.dispose();
-				new OptionManageEmployee().main(null);
+				new OptionUser().main(null);
 				
 			}
 			

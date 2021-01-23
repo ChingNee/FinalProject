@@ -118,7 +118,7 @@ public class ViewClaimStatus {
 						String status = claim.getStatus();
 						Date date = claim.getDate();
 
-						Object[] row = { claimID, employeeID, amount, status, date };
+						Object[] row = { claimID, employeeID, amount, date, status };
 						model.addRow(row);
 
 					}

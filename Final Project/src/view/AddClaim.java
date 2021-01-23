@@ -121,11 +121,13 @@ public class AddClaim {
 		resetButton.setBounds(51, 10, 85, 21);
 		panel_4.add(resetButton);
 		
+		//set action listener for reset button
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//reset field values
 				employeeIDField.setText("");
 				amountField.setText("");
 				dateField.setText("");
@@ -139,11 +141,13 @@ public class AddClaim {
 		goBackButton.setBounds(351, 10, 85, 21);
 		panel_4.add(goBackButton);
 		
+		//set action listener for goBackButton
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//dispose current frame and open new frame
 				addClaimFrame.dispose();
 				new OptionApply().main(null);
 				
@@ -157,20 +161,26 @@ public class AddClaim {
 		applyButton.setBounds(201, 10, 85, 21);
 		panel_4.add(applyButton);
 		
+		//set action listener for applyButton
 		applyButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//create claim object
 				Claim claim = new Claim();
 				try {
 					
+					//set value for claim object from fields
 					claim.setEmployeeID(Integer.parseInt(employeeIDField.getText()));
 					claim.setAmount(Double.parseDouble(amountField.getText()));
 					claim.setDate(Date.valueOf(dateField.getText()));
 					claim.setStatus("Processing");
 					
+					//create claim controller object
 					ClaimController claimController = new ClaimController();
+					
+					//insert claim into database
 					claimController.insertClaim(claim);
 					
 				}catch(NumberFormatException numberException) {

@@ -81,11 +81,13 @@ public class LoginUser {
 		resetButton.setBounds(66, 220, 85, 21);
 		panel.add(resetButton);
 		
+		//set action listener for reset button
 		resetButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				//reset fields
 				userIDField.setText("");
 				passwordField.setText("");
 			}
@@ -97,11 +99,13 @@ public class LoginUser {
 		goBackButton.setBounds(321, 220, 85, 21);
 		panel.add(goBackButton);
 		
+		//set action listener for go back button
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				//dispose current frame and open new frame
 				loginScreenFrame.dispose();
 				new Welcome().main(null);
 			}
@@ -113,25 +117,31 @@ public class LoginUser {
 		loginButton.setBounds(194, 220, 85, 21);
 		panel.add(loginButton);
 		
+		//set action listener for login button
 		loginButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 				try {
 					
+					//get user ID and password from fields
 					String userID = userIDField.getText();
 					String password = String.valueOf(passwordField.getPassword());
 					
+					//create user controller object
 					UserController usrController = new UserController();
 					
+					//if login success
 					if(usrController.login(userID,password)) {
 						
+						//dispose current frame and open new frame
 						loginScreenFrame.dispose();
 						new OptionUser().main(null);
 						
+					//if login failed
 					}else {
+						//show error message
 						new JOptionPane().showMessageDialog(null, "Wrong username/password.");
 					}
 					
