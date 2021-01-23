@@ -3,17 +3,17 @@ package model;
 import java.sql.Date;
 
 public class Payroll {
-	
+
 	private int payrollID;
-	
+
 	private int employeeID;
-	
+
 	private double totalAddition;
-	
+
 	private double totalDeduction;
-	
+
 	private double totalAmount;
-	
+
 	private Date date;
 
 	public Payroll(int payrollID, int employeeID, double totalClaim, double totalDeduction, double totalAmount,
@@ -114,7 +114,5 @@ public class Payroll {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	
 
 }

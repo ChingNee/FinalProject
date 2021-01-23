@@ -23,9 +23,10 @@ public class ViewEmployeeList {
 
 	private JFrame frmViewEmployeeList;
 	private JTable employeeTable;
-	private String[] cols = {"Employee ID", "Employee Name", "Phone No.", "Gender", "Age", "Account No. ", "Date Joined", "Position", "Salary", "Sick Leave", "Annual Leave"};
+	private String[] cols = { "Employee ID", "Employee Name", "Phone No.", "Gender", "Age", "Account No. ",
+			"Date Joined", "Position", "Salary", "Sick Leave", "Annual Leave" };
 	private String[][] data = {};
-	private DefaultTableModel model = new DefaultTableModel(data,cols);
+	private DefaultTableModel model = new DefaultTableModel(data, cols);
 
 	/**
 	 * Launch the application.
@@ -59,26 +60,27 @@ public class ViewEmployeeList {
 		frmViewEmployeeList.setBounds(100, 100, 1120, 560);
 		frmViewEmployeeList.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmViewEmployeeList.getContentPane().setLayout(null);
-		
+
 		JLabel employeeListLabel = new JLabel("Employee List");
 		employeeListLabel.setBounds(525, 12, 126, 23);
 		frmViewEmployeeList.getContentPane().add(employeeListLabel);
 		employeeListLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 10, 1086, 25);
 		frmViewEmployeeList.getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 37, 1086, 431);
 		frmViewEmployeeList.getContentPane().add(scrollPane);
-		
+
+		// set value for table model
 		employeeTable = new JTable();
 		EmployeeController employeeController = new EmployeeController();
 		ArrayList<Employee> employeeList = employeeController.getEmployeeList();
-		for(Employee employee : employeeList) {
-			
+		for (Employee employee : employeeList) {
+
 			int employeeID = employee.getEmployeeID();
 			String employeeName = employee.getEmployeeName();
 			String employeePosition = employee.getEmployeePosition();
@@ -90,11 +92,11 @@ public class ViewEmployeeList {
 			Date dateJoined = employee.getDateJoined();
 			int age = employee.getAge();
 			String phoneNo = employee.getPhoneNo();
-			
-			Object[] row = {employeeID,employeeName,phoneNo,gender,age,
-					accountNo,dateJoined,employeePosition,employeeSalary,sickLeave,annualLeave};
+
+			Object[] row = { employeeID, employeeName, phoneNo, gender, age, accountNo, dateJoined, employeePosition,
+					employeeSalary, sickLeave, annualLeave };
 			model.addRow(row);
-			
+
 		}
 		employeeTable.setModel(model);
 		employeeTable.getColumnModel().getColumn(1).setPreferredWidth(250);
@@ -108,28 +110,29 @@ public class ViewEmployeeList {
 		employeeTable.getColumnModel().getColumn(10).setPreferredWidth(85);
 		employeeTable.setFont(new Font("Verdana", Font.PLAIN, 10));
 		scrollPane.setViewportView(employeeTable);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 472, 1086, 41);
 		frmViewEmployeeList.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JButton goBackButton = new JButton("Go Back");
 		goBackButton.setFont(new Font("Verdana", Font.BOLD, 10));
 		goBackButton.setBounds(991, 10, 85, 21);
 		panel_1.add(goBackButton);
-		
+
+		// set action listener for go back button
 		goBackButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+
+				// dispose current frame and open new frame
 				frmViewEmployeeList.dispose();
 				new OptionUser().main(null);
-				
+
 			}
-			
-			
+
 		});
 	}
 }

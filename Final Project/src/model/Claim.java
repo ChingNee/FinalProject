@@ -3,18 +3,19 @@ package model;
 import java.sql.Date;
 
 public class Claim {
-	
+
 	private int claimID;
-	
+
 	private int employeeID;
-	
+
 	private double amount;
-	
+
 	private String status;
-	
+
 	private Date date;
-	
-	public Claim() {}
+
+	public Claim() {
+	}
 
 	/**
 	 * @return the claimID
@@ -84,6 +85,6 @@ public class Claim {
 	 */
 	public void setDate(Date date) {
 		this.date = date;
-	};	
+	};
 
 }

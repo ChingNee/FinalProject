@@ -3,15 +3,15 @@ package model;
 import java.sql.Date;
 
 public class LeaveApplication {
-	
+
 	private int leaveID;
-	
+
 	private int employeeID;
-	
+
 	private Date date;
-	
+
 	private String type;
-	
+
 	private String status;
 
 	public LeaveApplication(int leaveID, int employeeID, Date date, String type, String status) {
@@ -96,9 +96,5 @@ public class LeaveApplication {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	
-	
-	
 
 }

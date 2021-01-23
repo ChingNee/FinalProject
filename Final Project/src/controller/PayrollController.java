@@ -334,7 +334,7 @@ public class PayrollController {
 		Payroll payroll = new Payroll();
 		payroll.setEmployeeID(employeeID);
 		payroll.setTotalAmount(totalAmount);
-		payroll.setTotalAddition(totalClaim);
+		payroll.setTotalAddition(Math.round(totalClaim * 100.0) / 100.0);
 		payroll.setTotalDeduction(totalDeduction);
 		payroll.setDate(Date.valueOf(java.time.LocalDate.now()));
 

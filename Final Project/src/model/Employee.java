@@ -3,30 +3,31 @@ package model;
 import java.sql.Date;
 
 public class Employee {
-	
+
 	private int employeeID;
-	
+
 	private String employeeName;
-	
+
 	private String employeePosition;
-	
+
 	private double employeeSalary;
-	
+
 	private int annualLeave;
-	
+
 	private int sickLeave;
-	
+
 	private String gender;
-	
+
 	private int accountNo;
-	
+
 	private Date dateJoined;
-	
+
 	private int age;
-	
+
 	private String phoneNo;
-	
-	public Employee() {}
+
+	public Employee() {
+	}
 
 	/**
 	 * @return the employeeID

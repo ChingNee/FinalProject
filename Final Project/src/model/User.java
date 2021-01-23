@@ -1,13 +1,13 @@
 package model;
 
 public class User {
-	
+
 	private String userID;
-	
+
 	private String fullName;
-	
+
 	private String password;
-	
+
 	public User(String userID, String fullName, String password) {
 		super();
 		this.userID = userID;
@@ -57,6 +57,4 @@ public class User {
 		this.password = password;
 	}
 
-	
-	
 }
