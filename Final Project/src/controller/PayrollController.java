@@ -120,7 +120,7 @@ public class PayrollController {
 	 * 
 	 * @param payrollID
 	 */
-	public void deletePayrollById(int payrollID) {
+	public void deletePayrollByID(int payrollID) {
 
 		try {
 

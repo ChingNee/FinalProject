@@ -130,7 +130,7 @@ public class DeletePayroll {
 					PayrollController payrollController = new PayrollController();
 
 					// delete payroll
-					payrollController.deletePayrollById(payrollID);
+					payrollController.deletePayrollByID(payrollID);
 
 				} catch (NullPointerException nullException) {
 					new JOptionPane().showMessageDialog(null, "Please enter the required fields.");
